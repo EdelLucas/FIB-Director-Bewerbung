@@ -54,8 +54,8 @@
         .navbar { position: fixed; top: 0; left: 0; width: 100%; background: rgba(30, 30, 30, 0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border-line); z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; }
         .nav-brand { display: flex; align-items: center; gap: 12px; font-weight: bold; letter-spacing: 2px; color: var(--accent-gold); }
         .nav-brand img { width: 32px; }
-        .nav-links { display: flex; gap: 25px; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 13px; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; transition: color 0.3s; }
+        .nav-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 11px; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; transition: color 0.3s; padding: 5px 0; }
         .nav-links a:hover { color: var(--accent-gold); }
 
         /* LAYOUT CONTAINER */
@@ -72,6 +72,7 @@
 
         /* SECTIONS */
         .section { padding: 110px 0 50px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .section:last-of-type { border-bottom: none; }
         .section-tag { color: var(--accent-gold); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: bold; margin-bottom: 6px; }
         .section-title { font-size: 30px; margin-bottom: 35px; font-weight: 700; letter-spacing: 1px; }
         
@@ -93,9 +94,9 @@
         /* GRID SYSTEMS */
         .dept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
         .dept-card { background: var(--bg-card); border-top: 3px solid var(--accent-gold); border-left: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 25px; border-radius: 4px; }
-        .dept-title { color: var(--text-main); font-weight: 700; margin-bottom: 12px; font-size: 16px; letter-spacing: 1px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; }
+        .dept-title { color: var(--text-main); font-weight: 700; margin-bottom: 12px; font-size: 16px; letter-spacing: 1px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; text-transform: uppercase; }
         .dept-list { list-style: none; }
-        .dept-list li { font-size: 14px; color: #d0d0d0; margin-bottom: 8px; padding-left: 15px; position: relative; }
+        .dept-list li { font-size: 14px; color: #d0d0d0; margin-bottom: 8px; padding-left: 15px; position: relative; text-align: left; }
         .dept-list li::before { content: "▪"; color: var(--accent-gold); position: absolute; left: 0; font-size: 10px; top: 1px; }
 
         /* HISTORY TABLE */
@@ -117,17 +118,22 @@
         .bullet-list li::before { content: "✔"; color: var(--accent-gold); position: absolute; left: 0; }
 
         /* FOOTER */
-        .footer { text-align: center; padding: 90px 0 50px 0; border-top: 1px solid var(--border-line); margin-top: 50px; }
+        .footer { text-align: center; padding: 90px 0 50px 0; border-top: 1px solid var(--border-line); margin-top: 50px; position: relative; }
         .footer-logo { width: 110px; margin-bottom: 20px; opacity: 0.8; }
         .footer-quote { font-size: 16px; color: var(--accent-gold); font-weight: 600; font-style: italic; margin-bottom: 10px; }
-        .footer-credits { font-size: 12px; color: var(--text-muted); letter-spacing: 1px; }
+        .footer-credits { font-size: 12px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
+        
+        .signature-box { position: absolute; bottom: 50px; right: 50px; text-align: right; color: #fff; font-size: 14px; }
+        .signature-name { font-family: 'Brush Script MT', cursive; font-size: 28px; color: #fff; opacity: 0.9; margin-bottom: 5px; }
 
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-8px); } 60% { transform: translateY(-4px); } }
 
-        @media (max-width: 850px) {
+        @media (max-width: 950px) {
             .profile-container, .dept-grid, .rank-main-container { grid-template-columns: 1fr; }
             .nav-links { display: none; }
             .navbar { padding: 15px 20px; }
+            .hero-title { font-size: 32px; }
+            .signature-box { position: relative; bottom: 0; right: 0; text-align: center; margin-top: 40px; }
         }
     </style>
 </head>
@@ -148,12 +154,13 @@
         </div>
         <div class="nav-links">
             <a href="#allgemein">Allgemein</a>
-            <a href="#starken">Stärken</a>
+            <a href="#kompetenzen">Kompetenzen</a>
             <a href="#werdegang">Werdegang</a>
-            <a href="#vorschlaege">Konzept</a>
+            <a href="#strategie">Strategie</a>
             <a href="#voraussetzung">Voraussetzungen</a>
-            <a href="#abteilungen">Abteilungen</a>
-            <a href="#raenge">Rangkonzept</a>
+            <a href="#abteilungen">Struktur</a>
+            <a href="#raenge">Hierarchie</a>
+            <a href="#motivation">Motivation</a>
         </div>
     </nav>
 
@@ -190,7 +197,7 @@
             </div>
         </section>
 
-        <section id="starken" class="section">
+        <section id="kompetenzen" class="section">
             <div class="section-tag">02 / Kompetenzen</div>
             <h2 class="section-title">Was mich als Leader auszeichnet</h2>
             
@@ -249,9 +256,9 @@
             </table>
         </section>
 
-        <section id="vorschlaege" class="section">
+        <section id="strategie" class="section">
             <div class="section-tag">04 / Strategie</div>
-            <h2 class="section-title">Verbesserungsvorschläge & Konzepte</h2>
+            <h2 class="section-title">Verbesserungsvorschläge</h2>
             
             <div class="text-highlight-box">
                 <h4>1. Weniger Micromanagement</h4>
@@ -264,7 +271,7 @@
             </div>
 
             <div class="text-highlight-box">
-                <h4>3. Meritokratische Prinzipien (Leistungsprinzip)</h4>
+                <h4>3. Meritokratische Prinzipien</h4>
                 <p class="text-block" style="margin-bottom:0;">Leistung muss der einzige Maßstab für Aufstieg und Einfluss sein. Beförderungen, Sonderrechte und Verantwortungsbereiche orientieren sich an messbaren Ergebnissen, Disziplin und Verlässlichkeit. Persönliche Nähe zur Führungsebene darf weder Vorteile noch Schutz bieten. Es darf nicht vorkommen, dass engagierte Mitglieder für geringfügige Fehler öffentlich kritisiert werden, während andere aufgrund persönlicher Beziehungen unbehelligt bleiben.</p>
             </div>
         </section>
@@ -277,7 +284,7 @@
             <p class="text-block"><strong>Wiedereinstellung leistungsstarker Mitglieder:</strong> Ehemalige Mitglieder des FIB, die durch konstante Aktivität, Disziplin und fachliche Stärke aufgefallen sind, erhalten die Möglichkeit einer Rückkehr. Maßgeblich ist die dokumentierte Leistung innerhalb der Behörde, nicht persönliche Beziehungen.</p>
             <p class="text-block"><strong>Strukturiertes Aufnahmeverfahren:</strong> Das Auswahlverfahren wird in seiner Komplexität die tatsächliche Arbeit im FIB abbilden. Gefordert werden analytisches Denken, strukturiertes Vorgehen und sichere Anwendung der geltenden Gesetze.</p>
 
-            <h3 style="color:var(--accent-gold); font-size:16px; margin:25px 0 15px 0; text-transform:uppercase;">Allgemeine Voraussetzungen (Übersicht):</h3>
+            <h3 style="color:var(--accent-gold); font-size:16px; margin:25px 0 15px 0; text-transform:uppercase; letter-spacing:1px;">Allgemeine Voraussetzungen (Übersicht):</h3>
             <ul class="bullet-list">
                 <li>Mindestens 3 Monate aktiver Staatsdienst</li>
                 <li>Visum Stufe 20</li>
@@ -315,23 +322,23 @@
                     <ul class="dept-list">
                         <li>Interne und externe Korruptionsermittlungen auf allen Ebenen.</li>
                         <li>Überprüfung behördlicher Integrität und Aufarbeitung von Amtsmissbrauch.</li>
-                        <li>Diskrete Untersuchungen bei Verdachtsmomenten zur Wahrung der Glaubwürdigkeit.</li>
+                        <li>Diskrete Untersuchungen bei Verdachtsmomenten innerhalb staatlicher Strukturen.</li>
                     </ul>
                 </div>
                 <div class="dept-card">
                     <div class="dept-title">Human Resources (HR)</div>
                     <ul class="dept-list">
                         <li>Auswahl, Bewertung und zukunftsorientierte Entwicklung des Personals.</li>
-                        <li>Durchführung vollkommen strukturierter Bewerbungs- und Einstellungsverfahren.</li>
+                        <li>Durchführung strukturierter Bewerbungs- und Einstellungsverfahren.</li>
                         <li>Leistungsüberprüfung, Aktivitätsdokumentation und interne Evaluation.</li>
                     </ul>
                 </div>
                 <div class="dept-card">
                     <div class="dept-title">Training Division</div>
                     <ul class="dept-list">
-                        <li>Ausbildung neuer Mitglieder nach strengen, einheitlichen Standards.</li>
-                        <li>Regelmäßige Fortbildungen für bestehendes Personal im taktischen Bereich.</li>
-                        <li>Praxisnahe Szenarien zur optimalen Vorbereitung auf den Ernstfall.</li>
+                        <li>Ausbildung neuer Mitglieder nach einheitlichen Standards.</li>
+                        <li>Regelmäßige Fortbildungen für taktische Einsatzvorbereitung.</li>
+                        <li>Überprüfung rechtlicher und taktischer Kenntnisse.</li>
                     </ul>
                 </div>
                 <div class="dept-card">
@@ -340,6 +347,16 @@
                         <li>Rechtsprüfung interner Maßnahmen und operativer Einsatzentscheidungen.</li>
                         <li>Beratung der Direktion in juristischen Fragestellungen.</li>
                         <li>Unterstützung bei der Erstellung absolut rechtssicherer Anordnungen.</li>
+                    </ul>
+                </div>
+                <div class="dept-card" style="grid-column: span 2;">
+                    <div class="dept-title">Public Relations (PR)</div>
+                    <ul class="dept-list" style="display:grid; grid-template-columns: 1fr 1fr; gap: 0 20px;">
+                        <li>Darstellung der Behörde gegenüber Öffentlichkeit und Medien.</li>
+                        <li>Organisation von Pressekonferenzen.</li>
+                        <li>Aufbereitung von Erfolgen und strukturellen Entwicklungen.</li>
+                        <li>Wahrung eines professionellen und souveränen Erscheinungsbildes.</li>
+                        <li>Kommunikation zwischen FIB und externen Institutionen.</li>
                     </ul>
                 </div>
             </div>
@@ -380,7 +397,7 @@
 
                 <div class="rank-section-box">
                     <h3>Spezial- & Agentenränge</h3>
-                    <div class="rank-row"><span><span class="rank-id-num">20</span>Special Agent</span><strong>Media / PR</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">20</span>Special Agent</span><strong>Media</strong></div>
                     <div class="rank-row"><span><span class="rank-id-num">19</span>Tactical Operator</span><strong>C.I.R.G. Rang</strong></div>
                     <div class="rank-row"><span><span class="rank-id-num">18</span>Department Specialist</span><strong>Department Rang</strong></div>
                     <div class="rank-row"><span><span class="rank-id-num">11</span>Junior Special Agent</span><strong>Mediabegleitung</strong></div>
@@ -392,11 +409,46 @@
             </div>
         </section>
 
+        <section id="motivation" class="section">
+            <div class="section-tag">08 / Motivation</div>
+            <h2 class="section-title">Warum ich Leader werden möchte</h2>
+            
+            <p class="text-block">Ich bewerbe mich nicht aus Prestigegründen, sondern aus dem Anspruch heraus, das FIB strukturell und organisatorisch weiterzuentwickeln. In den vergangenen Monaten habe ich die Behörde aus unterschiedlichen Rollen erlebt und kenne sowohl operative Abläufe als auch interne Dynamiken. Dieses Gesamtbild ermöglicht es mir, Stärken auszubauen und Schwachstellen gezielt anzugehen.</p>
+            
+            <p class="text-block">Nach meiner langen Zeit im Staatsdienst reizt es mich, selbst die umfassende Verantwortung für eine Bundesbehörde zu übernehmen. Führung auf dieser Ebene bedeutet sowohl Entscheidungskompetenz, als auch die Verpflichtung, Maßstäbe zu setzen und konsequent durchzusetzen.</p>
+
+            <p class="text-block">Ich möchte ein FIB führen, das durch klare Strukturen, faire Leistungsbewertung und professionelle Außenwirkung überzeugt. Eine Behörde, die nicht von Einzelpersonen abhängt, sondern durch stabile Systeme getragen wird.</p>
+
+            <div class="text-highlight-box">
+                <h4>Führungsverständnis</h4>
+                <p class="text-block" style="margin-bottom:0;">Die Leitung ist für mich kein Titel, sondern eine Aufgabe mit Tragweite. Wer an der Spitze steht, prägt Richtung, Kultur und Anspruch der gesamten Organisation. Dieser Verantwortung möchte ich mich stellen.</p>
+            </div>
+        </section>
+
+        <section id="schlusswort" class="section">
+            <div class="section-tag">09 / Abschluss</div>
+            <h2 class="section-title">Schlusswort</h2>
+            
+            <p class="text-block">Das FIB hat enormes Potenzial. Mit klarer Führung und sauberen Strukturen kann diese Behörde wieder das Niveau erreichen, das sie verdient.</p>
+            <p class="text-block">Ich habe lange im Staatsdienst gearbeitet, Verantwortung getragen und unterschiedliche Leitungsstile erlebt. Jetzt möchte ich selbst die Richtung vorgeben und Maßstäbe setzen. Mein Anspruch ist es, Entscheidungen konsequent und fair umzusetzen.</p>
+            
+            <div class="text-highlight-box">
+                <p class="text-block" style="margin-bottom:0; font-weight:600; color:#fff;">Wenn mir das Vertrauen gegeben wird, führe ich das FIB ruhig, strukturiert und leistungsorientiert. Entscheidungen werden klar getroffen, Standards gelten für alle.</p>
+            </div>
+
+            <p class="text-block" style="margin-top:40px; text-align:center; color: var(--text-muted);">Ich bedanke mich für die Chance, mich hier vorstellen zu dürfen, und wünsche allen Bearbeitern einen angenehmen Tag.</p>
+        </section>
+
         <footer class="footer">
             <img class="footer-logo" src="https://i.imgur.com/PDg8yT2.png" alt="FIB Logo Footer">
-            <p class="footer-quote">„Ein FIB, das konsequent nach Leistung bewertet, schafft Motivation und Fairness.“</p>
-            <p style="margin-bottom: 20px; color: var(--text-muted);">Vielen Dank für das Lesen meiner Bewerbung.</p>
+            <div class="footer-quote">„Stärke zeigt sich nicht in Worten, sondern in Entscheidungen.“</div>
             <div class="footer-credits">FEDERAL INVESTIGATION BUREAU · LEADERSHIP APPLICATION · REPUBLIK CODES 2026</div>
+            
+            <div class="signature-box">
+                <div class="signature-name">Eko Plaste</div>
+                <div class="signature-line">Eko Plaste | ID: 17450</div>
+                <div class="signature-role">Bewerber zum Director of Bureau</div>
+            </div>
         </footer>
     </div>
 
