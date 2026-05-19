@@ -3,130 +3,417 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FIB – Bewerbung Director of Bureau | Elito Kasalla</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Bewerbung zum 17. Director of F.I.B. | Eko Plaste</title>
+    <style>
+        :root {
+            --bg-dark: #1e1e1e;
+            --bg-card: #282828;
+            --accent-gold: #c5a059;
+            --text-main: #f5f5f5;
+            --text-muted: #a0a0a0;
+            --border-line: rgba(197, 160, 89, 0.25);
+            --glow-color: rgba(197, 160, 89, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* INTRO OVERLAY */
+        #intro-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: #151515;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s ease, visibility 0.6s;
+        }
+
+        .intro-logo { width: 140px; margin-bottom: 25px; filter: drop-shadow(0 0 12px var(--glow-color)); }
+        .intro-title { font-size: 26px; letter-spacing: 5px; margin-bottom: 8px; font-weight: 700; text-align: center; }
+        .intro-subtitle { font-size: 13px; color: var(--accent-gold); letter-spacing: 3px; margin-bottom: 40px; text-transform: uppercase; }
+        .status-terminal { color: #00ffaa; font-size: 12px; margin-bottom: 30px; font-family: monospace; letter-spacing: 1px; }
+        .enter-btn { background: transparent; border: 2px solid var(--accent-gold); color: var(--accent-gold); padding: 12px 45px; font-size: 15px; cursor: pointer; transition: all 0.3s; font-weight: bold; letter-spacing: 2px; }
+        .enter-btn:hover { background: var(--accent-gold); color: #1e1e1e; box-shadow: 0 0 20px var(--glow-color); }
+
+        /* NAVBAR */
+        .navbar { position: fixed; top: 0; left: 0; width: 100%; background: rgba(30, 30, 30, 0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border-line); z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; }
+        .nav-brand { display: flex; align-items: center; gap: 12px; font-weight: bold; letter-spacing: 2px; color: var(--accent-gold); }
+        .nav-brand img { width: 32px; }
+        .nav-links { display: flex; gap: 25px; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 13px; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--accent-gold); }
+
+        /* LAYOUT CONTAINER */
+        .main-wrapper { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        
+        /* HERO */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border-bottom: 1px solid var(--border-line); }
+        .hero-logo { width: 180px; margin-bottom: 30px; filter: drop-shadow(0 0 10px rgba(0,0,0,0.5)); }
+        .hero-title { font-size: 42px; font-weight: 800; letter-spacing: 3px; margin-bottom: 10px; }
+        .hero-badge { background: rgba(197, 160, 89, 0.1); border: 1px solid var(--accent-gold); color: var(--accent-gold); padding: 6px 18px; font-size: 13px; letter-spacing: 2px; margin-bottom: 25px; font-weight: bold; }
+        .hero-sub { font-size: 22px; color: var(--text-main); font-weight: 600; letter-spacing: 1px; }
+        .hero-id { color: var(--accent-gold); font-size: 16px; margin-top: 5px; }
+        .scroll-down { margin-top: 60px; font-size: 11px; color: var(--accent-gold); cursor: pointer; letter-spacing: 2px; animation: bounce 2s infinite; }
+
+        /* SECTIONS */
+        .section { padding: 110px 0 50px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .section-tag { color: var(--accent-gold); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: bold; margin-bottom: 6px; }
+        .section-title { font-size: 30px; margin-bottom: 35px; font-weight: 700; letter-spacing: 1px; }
+        
+        /* TABLES & INFO */
+        .profile-container { display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; align-items: center; }
+        .profile-img-box { background: var(--bg-card); border: 1px solid var(--border-line); padding: 20px; text-align: center; border-radius: 4px; }
+        .profile-img-box img { width: 100%; border-radius: 2px; filter: grayscale(20%); }
+        .info-table { width: 100%; border-collapse: collapse; }
+        .info-table tr { border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .info-table td { padding: 16px 12px; font-size: 15px; }
+        .info-table td.label { color: var(--text-muted); font-weight: 500; width: 40%; }
+        .info-table td.value { color: var(--text-main); font-weight: 600; }
+
+        /* TEXT BLOCKS */
+        .text-block { font-size: 15px; color: #e0e0e0; margin-bottom: 20px; text-align: justify; }
+        .text-highlight-box { background: rgba(197, 160, 89, 0.04); border-left: 4px solid var(--accent-gold); padding: 20px; margin-bottom: 25px; border-radius: 0 4px 4px 0; }
+        .text-highlight-box h4 { color: var(--accent-gold); margin-bottom: 8px; font-size: 16px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* GRID SYSTEMS */
+        .dept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+        .dept-card { background: var(--bg-card); border-top: 3px solid var(--accent-gold); border-left: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 25px; border-radius: 4px; }
+        .dept-title { color: var(--text-main); font-weight: 700; margin-bottom: 12px; font-size: 16px; letter-spacing: 1px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; }
+        .dept-list { list-style: none; }
+        .dept-list li { font-size: 14px; color: #d0d0d0; margin-bottom: 8px; padding-left: 15px; position: relative; }
+        .dept-list li::before { content: "▪"; color: var(--accent-gold); position: absolute; left: 0; font-size: 10px; top: 1px; }
+
+        /* HISTORY TABLE */
+        .history-table { width: 100%; border-collapse: collapse; background: var(--bg-card); border: 1px solid var(--border-line); border-radius: 4px; overflow: hidden; }
+        .history-table th { background: rgba(197, 160, 89, 0.1); color: var(--accent-gold); text-align: left; padding: 15px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+        .history-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 15px; }
+        .history-table tr:last-child td { border-bottom: none; }
+
+        /* RÄNGE SYSTEM */
+        .rank-main-container { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .rank-section-box { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 4px; }
+        .rank-section-box h3 { color: var(--accent-gold); font-size: 15px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border-line); padding-bottom: 6px; }
+        .rank-row { display: flex; justify-content: space-between; padding: 8px 5px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 14px; }
+        .rank-id-num { color: var(--accent-gold); font-weight: bold; font-family: monospace; margin-right: 10px; }
+
+        /* LISTS */
+        .bullet-list { list-style: none; margin-bottom: 20px; }
+        .bullet-list li { font-size: 15px; margin-bottom: 10px; padding-left: 20px; position: relative; }
+        .bullet-list li::before { content: "✔"; color: var(--accent-gold); position: absolute; left: 0; }
+
+        /* FOOTER */
+        .footer { text-align: center; padding: 90px 0 50px 0; border-top: 1px solid var(--border-line); margin-top: 50px; }
+        .footer-logo { width: 110px; margin-bottom: 20px; opacity: 0.8; }
+        .footer-quote { font-size: 16px; color: var(--accent-gold); font-weight: 600; font-style: italic; margin-bottom: 10px; }
+        .footer-credits { font-size: 12px; color: var(--text-muted); letter-spacing: 1px; }
+
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-8px); } 60% { transform: translateY(-4px); } }
+
+        @media (max-width: 850px) {
+            .profile-container, .dept-grid, .rank-main-container { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .navbar { padding: 15px 20px; }
+        }
+    </style>
 </head>
 <body>
 
     <div id="intro-overlay">
         <img class="intro-logo" src="https://i.imgur.com/PDg8yT2.png" alt="FIB Logo">
         <div class="intro-title">FEDERAL INVESTIGATION BUREAU</div>
-        <div class="intro-subtitle">Bureau Administration — Director Application</div>
-        <div class="status-terminal">INITIALIZING SECURE CONNECTION... READY</div>
-        <button class="enter-btn" onclick="enterApplication()">▶ BETRETEN</button>
+        <div class="intro-subtitle">Official Leadership Application</div>
+        <div class="status-terminal">ESTABLISHING SECURE PROTOCOL... ACCESS GRANTED</div>
+        <button class="enter-btn" onclick="enterApplication()">SYSTEM BETRETEN</button>
     </div>
 
     <nav class="navbar">
         <div class="nav-brand">
             <img src="https://i.imgur.com/PDg8yT2.png" alt="FIB Emblem">
-            <span>FIB</span>
+            <span>FIB APPLICATION</span>
         </div>
         <div class="nav-links">
-            <a href="#info">Profil</a>
-            <a href="#motivation">Motivation</a>
+            <a href="#allgemein">Allgemein</a>
+            <a href="#starken">Stärken</a>
+            <a href="#werdegang">Werdegang</a>
+            <a href="#vorschlaege">Konzept</a>
+            <a href="#voraussetzung">Voraussetzungen</a>
             <a href="#abteilungen">Abteilungen</a>
-            <a href="#erfahrung">Erfahrung</a>
-            <a href="#raenge">Ränge</a>
+            <a href="#raenge">Rangkonzept</a>
         </div>
     </nav>
 
     <div class="main-wrapper">
         
         <header class="hero">
-            <img class="hero-logo" src="https://i.imgur.com/PDg8yT2.png" alt="FIB Large Logo">
-            <div class="hero-meta">Offizielle Bewerbung — 2026</div>
+            <img class="hero-logo" src="https://i.imgur.com/PDg8yT2.png" alt="FIB Emblem">
+            <div class="hero-badge">BEWERBUNG ZUM 17. DIRECTOR OF F.I.B.</div>
             <h1 class="hero-title">FEDERAL INVESTIGATION BUREAU</h1>
-            <div class="hero-badge">★ BEWERBUNG ZUM DIRECTOR OF BUREAU ★</div>
-            <p class="hero-quote">„Respekt wird nicht gefordert, sondern verdient.“</p>
-            <p class="hero-sub"><strong>Elito Kasalla</strong> · ID: 226991</p>
-            <div class="scroll-down" onclick="scrollToSection('info')">↓<br>SCROLL</div>
+            <p class="hero-sub">Eko Plaste</p>
+            <p class="hero-id">ID: 17450</p>
+            <div class="scroll-down" onclick="scrollToSection('allgemein')">DIREKTION SPEICHER abrufen<br>↓</div>
         </header>
 
-        <section id="info" class="section">
-            <div class="section-tag">Persönliche Daten</div>
-            <h2 class="section-title">Informationen</h2>
+        <section id="allgemein" class="section">
+            <div class="section-tag">01 / Datenblatt</div>
+            <h2 class="section-title">Allgemeine Informationen</h2>
             
             <div class="profile-container">
                 <div class="profile-img-box">
-                    <img src="https://i.imgur.com/PDg8yT2.png" alt="Profile Badge">
+                    <img src="https://i.imgur.com/PDg8yT2.png" alt="FIB Agent">
                 </div>
                 <div>
                     <table class="info-table">
-                        <tr><td class="label">OOC Name</td><td class="value">Yazan</td></tr>
-                        <tr><td class="label">Alter</td><td class="value">20 Jahre</td></tr>
-                        <tr><td class="label">DC Name</td><td class="value">Yazan.448</td></tr>
-                        <tr><td class="label">IC Name</td><td class="value">Elito Kasalla</td></tr>
-                        <tr><td class="label">Reisepassnummer</td><td class="value">226991</td></tr>
-                        <tr><td class="label">Visum Stufe</td><td class="value">52</td></tr>
+                        <tr><td class="label">OOC Name</td><td class="value">Vincent</td></tr>
+                        <tr><td class="label">Alter</td><td class="value">28 Jahre</td></tr>
+                        <tr><td class="label">Discord</td><td class="value">Vinz1871</td></tr>
+                        <tr><td class="label">IC Name</td><td class="value">Eko Plaste</td></tr>
+                        <tr><td class="label">ID</td><td class="value">17450</td></tr>
+                        <tr><td class="label">Onlinezeit</td><td class="value">5 - 10 Stunden / Tag</td></tr>
+                        <tr><td class="label">Visumstufe</td><td class="value">64</td></tr>
                     </table>
                 </div>
             </div>
         </section>
 
-        <section id="motivation" class="section">
-            <div class="section-tag">Ziele & Vision</div>
-            <h2 class="section-title">Warum willst du Leader der Organisation werden?</h2>
-            <div class="section-quote">Disziplin ist nicht nur Pflicht – sie ist unser Vorteil.</div>
-            <p class="text-block">Die Bewerbung zum Director of Bureau motiviert mich, weil ich die Zukunft des FIB aktiv mitgestalten und auf höchster Ebene Verantwortung übernehmen möchte...</p>
-            <p class="text-block">Mein Ziel als Director ist es, das FIB weiterzuentwickeln, interne Abläufe zu optimieren und für Stabilität zu sorgen...</p>
-        </section>
+        <section id="starken" class="section">
+            <div class="section-tag">02 / Kompetenzen</div>
+            <h2 class="section-title">Was mich als Leader auszeichnet</h2>
+            
+            <p class="text-block">Meine Laufbahn ist durch verschiedene Führungsphasen und unterschiedliche Leitungsstile geprägt. Als <strong>SWAT Leader unter Sophia Hagedorn</strong> habe ich eine Einheit geführt, während interne Spannungen und operativer Druck gleichzeitig präsent waren. In dieser Phase ging es um Stabilität, Durchsetzungsfähigkeit und klare Hierarchien. Ich habe Strukturen festgezogen, Verantwortlichkeiten eindeutig definiert und die Einsatzbereitschaft der Einheit konstant gehalten.</p>
+            
+            <p class="text-block">Als <strong>28er unter Elli Brandenburger</strong> habe ich über sechs Monate hinweg ohne Orgawarn gearbeitet. In einer stark frequentierten Behörde mit hoher Erwartungshaltung bedeutete das vor allem Disziplin, Eigenkontrolle und dauerhafte Leistungsbereitschaft. Konstanz über diesen Zeitraum entsteht nicht zufällig, sondern durch saubere Arbeitsweise und Verantwortungsbewusstsein.</p>
 
-        <section id="abteilungen" class="section">
-            <div class="section-tag">Struktur & Organisation</div>
-            <h2 class="section-title">Abteilungskonzept</h2>
-            <div class="dept-grid">
-                <div class="dept-card"><div class="dept-title">HR — Human Resources</div><div class="dept-desc">Verwaltung, Einstellungen und Bewerbungsgespräche...</div></div>
-                <div class="dept-card"><div class="dept-title">PA — Public Affairs</div><div class="dept-desc">Öffentlichkeitsarbeit und Pressemitteilungen...</div></div>
-                <div class="dept-card"><div class="dept-title">PSB — Professional Standards Bureau</div><div class="dept-desc">Interne Ermittlungen und Korruptionsbekämpfung...</div></div>
-                <div class="dept-card"><div class="dept-title">TACTICAL — Spezialeinheit</div><div class="dept-desc">Ghettostreife, Razzien und Hochrisiko-Einsätze...</div></div>
+            <p class="text-block">Auch unter <strong>Chief of Police Panam Veto</strong> war ich als 28er tätig. Unterschiedliche Philosophie-Ansätze fordern Anpassungsfähigkeit, ohne den eigenen Anspruch aufzugeben. Ich habe Verantwortung übernommen, operative Abläufe unterstützt und in wechselnden Strukturen Stabilität bewahrt.</p>
+
+            <p class="text-block">Die letzten rund fünf Monate war ich im <strong>FIB unter Steve Cock als CIRG-Leiter</strong> eingesetzt. Dort lag mein Schwerpunkt auf Koordination, Analyse und interner Strukturarbeit. Ermittlungen wurden nicht nur begleitet, sondern systematisch aufgebaut. Personal wurde gezielt eingesetzt, Abläufe überprüft und Leistungsstandards definiert.</p>
+
+            <div class="text-highlight-box">
+                <h4>Führungsphilosophie</h4>
+                <p class="text-block" style="margin-bottom:0;">Ich kenne sowohl die Perspektive des operativen Leiters als auch die des strategisch eingebundenen Bereichsverantwortlichen. Führung bedeutet für mich, eine Organisation berechenbar, belastbar und handlungsfähig zu halten, unabhängig von internen oder externen Spannungen. Ich bin ein Mensch, der gerne führt, sich jedoch auch nicht scheut, selbst Anweisungen anzunehmen und umzusetzen.</p>
             </div>
         </section>
 
-        <section id="erfahrung" class="section">
-            <div class="section-tag">Werdegang</div>
-            <h2 class="section-title">Erfahrung & Qualifikationen</h2>
-            <div class="history-box">
-                <div class="history-card">
-                    <h4>GOV — Regierung</h4>
-                    <ul class="history-list">
-                        <li><strong>23. Vize Minister</strong> — Leitung: Kimjon Kasalla</li>
-                        <li><strong>25. Minister of State</strong> — Leitung: Kenan Kasalla</li>
+        <section id="werdegang" class="section">
+            <div class="section-tag">03 / Laufbahn</div>
+            <h2 class="section-title">Mein Werdegang</h2>
+            
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>Position / Rang</th>
+                        <th>Leitung / Behörde</th>
+                        <th>Dauer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>26. Police Commander</strong> (SWAT Leiter)</td>
+                        <td>Sophia Hagedorn</td>
+                        <td>1 Monat</td>
+                    </tr>
+                    <tr>
+                        <td><strong>28. Assistant Chief of Police</strong></td>
+                        <td>Elli Brandenburger</td>
+                        <td>6 Monate (ohne Orgawarn)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>28. Assistant Chief of Police</strong></td>
+                        <td>Panam Veto</td>
+                        <td>1 Monat</td>
+                    </tr>
+                    <tr>
+                        <td><strong>24. / 25. Chief of Department</strong> (CIRG Leiter)</td>
+                        <td>Steve Cock (FIB)</td>
+                        <td>5 Monate</td>
+                    </tr>
+                    <tr style="background: rgba(197, 160, 89, 0.05);">
+                        <td colspan="2"><strong>Gesamtzeit im Staatsdienst:</strong></td>
+                        <td><strong>1 Jahr und 5 Monate</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="vorschlaege" class="section">
+            <div class="section-tag">04 / Strategie</div>
+            <h2 class="section-title">Verbesserungsvorschläge & Konzepte</h2>
+            
+            <div class="text-highlight-box">
+                <h4>1. Weniger Micromanagement</h4>
+                <p class="text-block" style="margin-bottom:0;">Die Direktion hat die Aufgabe, strategische Leitlinien zu setzen und Ergebnisse zu kontrollieren. Operative Detailarbeit gehört in die Verantwortung der jeweiligen Abteilungen. In der Vergangenheit wurde auf höchster Ebene häufig zu tief in laufende Prozesse eingegriffen. Das schwächt die Eigenverantwortung und hemmt die Entwicklung starker Führungspersönlichkeiten innerhalb der Behörde. Unter meiner Leitung erhalten Abteilungsleiter und ihre Stellvertreter klar definierte Entscheidungsräume.</p>
+            </div>
+
+            <div class="text-highlight-box">
+                <h4>2. Elitäre Organisation</h4>
+                <p class="text-block" style="margin-bottom:0;">Das FIB soll wieder als exklusive Bundesbehörde wahrgenommen werden. Eine Aufnahme darf kein Standardverfahren sein. Die Anforderungen an Bewerber werden angehoben, sowohl fachlich als auch charakterlich. Aktivität allein reicht nicht aus. Erwartet werden Belastbarkeit, Integrität und nachweisbare Leistungsfähigkeit. Interne Ausbildungs- und Prüfungsphasen werden konsequent umgesetzt. Qualität vor Quantität ist dabei oberstes Prinzip.</p>
+            </div>
+
+            <div class="text-highlight-box">
+                <h4>3. Meritokratische Prinzipien (Leistungsprinzip)</h4>
+                <p class="text-block" style="margin-bottom:0;">Leistung muss der einzige Maßstab für Aufstieg und Einfluss sein. Beförderungen, Sonderrechte und Verantwortungsbereiche orientieren sich an messbaren Ergebnissen, Disziplin und Verlässlichkeit. Persönliche Nähe zur Führungsebene darf weder Vorteile noch Schutz bieten. Es darf nicht vorkommen, dass engagierte Mitglieder für geringfügige Fehler öffentlich kritisiert werden, während andere aufgrund persönlicher Beziehungen unbehelligt bleiben.</p>
+            </div>
+        </section>
+
+        <section id="voraussetzung" class="section">
+            <div class="section-tag">05 / Kriterien</div>
+            <h2 class="section-title">Einstellungsvoraussetzungen</h2>
+            
+            <p class="text-block"><strong>Mindestdauer im Staatsdienst:</strong> Voraussetzung für eine Bewerbung ist eine mindestens dreimonatige Tätigkeit im Staatsdienst. Diese Zeit dient als Nachweis für grundlegende Erfahrung, Verlässlichkeit und ein Verständnis behördlicher Abläufe.</p>
+            <p class="text-block"><strong>Wiedereinstellung leistungsstarker Mitglieder:</strong> Ehemalige Mitglieder des FIB, die durch konstante Aktivität, Disziplin und fachliche Stärke aufgefallen sind, erhalten die Möglichkeit einer Rückkehr. Maßgeblich ist die dokumentierte Leistung innerhalb der Behörde, nicht persönliche Beziehungen.</p>
+            <p class="text-block"><strong>Strukturiertes Aufnahmeverfahren:</strong> Das Auswahlverfahren wird in seiner Komplexität die tatsächliche Arbeit im FIB abbilden. Gefordert werden analytisches Denken, strukturiertes Vorgehen und sichere Anwendung der geltenden Gesetze.</p>
+
+            <h3 style="color:var(--accent-gold); font-size:16px; margin:25px 0 15px 0; text-transform:uppercase;">Allgemeine Voraussetzungen (Übersicht):</h3>
+            <ul class="bullet-list">
+                <li>Mindestens 3 Monate aktiver Staatsdienst</li>
+                <li>Visum Stufe 20</li>
+                <li>Rucksack Level 3</li>
+                <li>Gültiger Führerschein und Waffenschein</li>
+                <li>Absolut straffreie Akte</li>
+                <li>30 Tage FIBCO-frei</li>
+                <li>Exzellente Kenntnisse der aktuellen Gesetzeslage</li>
+            </ul>
+        </section>
+
+        <section id="abteilungen" class="section">
+            <div class="section-tag">06 / Struktur</div>
+            <h2 class="section-title">Abteilungskonzept</h2>
+            
+            <div class="dept-grid">
+                <div class="dept-card">
+                    <div class="dept-title">Critical Incident Response Group (CIRG)</div>
+                    <ul class="dept-list">
+                        <li>Spezialisierte Einheit für komplexe und zeitkritische Einsatzlagen.</li>
+                        <li>Übernahme von Hochrisikooperationen in enger Abstimmung mit staatlichen Behörden.</li>
+                        <li>Analyse und Koordination bei akuten Bedrohungsszenarien sowie Kooperation mit der CID.</li>
                     </ul>
                 </div>
-                <div class="history-card">
-                    <h4>FIB</h4>
-                    <ul class="history-list">
-                        <li><strong>9. Field Agent</strong> — Leitung: Mike Mosley</li>
+                <div class="dept-card">
+                    <div class="dept-title">Criminal Investigation Division (CID)</div>
+                    <ul class="dept-list">
+                        <li>Führung und Koordination umfangreicher Ermittlungsverfahren.</li>
+                        <li>Beweissicherung, Auswertung und strukturierte Fallanalyse.</li>
+                        <li>Zusammenarbeit mit der Staatsanwaltschaft zur Zerschlagung organisierter Kriminalität.</li>
+                    </ul>
+                </div>
+                <div class="dept-card">
+                    <div class="dept-title">Corruption Office</div>
+                    <ul class="dept-list">
+                        <li>Interne und externe Korruptionsermittlungen auf allen Ebenen.</li>
+                        <li>Überprüfung behördlicher Integrität und Aufarbeitung von Amtsmissbrauch.</li>
+                        <li>Diskrete Untersuchungen bei Verdachtsmomenten zur Wahrung der Glaubwürdigkeit.</li>
+                    </ul>
+                </div>
+                <div class="dept-card">
+                    <div class="dept-title">Human Resources (HR)</div>
+                    <ul class="dept-list">
+                        <li>Auswahl, Bewertung und zukunftsorientierte Entwicklung des Personals.</li>
+                        <li>Durchführung vollkommen strukturierter Bewerbungs- und Einstellungsverfahren.</li>
+                        <li>Leistungsüberprüfung, Aktivitätsdokumentation und interne Evaluation.</li>
+                    </ul>
+                </div>
+                <div class="dept-card">
+                    <div class="dept-title">Training Division</div>
+                    <ul class="dept-list">
+                        <li>Ausbildung neuer Mitglieder nach strengen, einheitlichen Standards.</li>
+                        <li>Regelmäßige Fortbildungen für bestehendes Personal im taktischen Bereich.</li>
+                        <li>Praxisnahe Szenarien zur optimalen Vorbereitung auf den Ernstfall.</li>
+                    </ul>
+                </div>
+                <div class="dept-card">
+                    <div class="dept-title">LAW (Rechtsabteilung)</div>
+                    <ul class="dept-list">
+                        <li>Rechtsprüfung interner Maßnahmen und operativer Einsatzentscheidungen.</li>
+                        <li>Beratung der Direktion in juristischen Fragestellungen.</li>
+                        <li>Unterstützung bei der Erstellung absolut rechtssicherer Anordnungen.</li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section id="raenge" class="section">
-            <div class="section-tag">Hierarchie</div>
-            <h2 class="section-title">Rangkonzept</h2>
-            <div class="rank-container">
-                <div class="rank-column">
-                    <div class="rank-item"><span class="rank-num">30</span> <span class="rank-name">Director of Bureau</span></div>
-                    <div class="rank-item"><span class="rank-num">29</span> <span class="rank-name">Deputy Director</span></div>
+            <div class="section-tag">07 / Hierarchie</div>
+            <h2 class="section-title">Das offizielle Rangkonzept</h2>
+            
+            <div class="rank-main-container">
+                <div class="rank-section-box">
+                    <h3>Leitung & Direktion</h3>
+                    <div class="rank-row"><span><span class="rank-id-num">30</span>Director of FIB</span><strong>Leitung</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">29</span>Deputy Director of FIB</span><strong>Dep. Leitung</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">28</span>Assistant Director</span><strong>Ass. Leitung</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">27</span>Adv. Director for Oversight</span><strong>Ass. Leitung / Curator</strong></div>
                 </div>
-                <div class="rank-column">
-                    <div class="rank-item"><span class="rank-num">20</span> <span class="rank-name">Tactical Captain</span></div>
+
+                <div class="rank-section-box">
+                    <h3>High Command</h3>
+                    <div class="rank-row"><span><span class="rank-id-num">26</span>Inspector</span><strong>High Command</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">25</span>Supervisory Head Agent</span><strong>High Command</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">24</span>Supervisory Special Agent</span><strong>High Command</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">23</span>Special Agent in Charge</span><strong>High Command</strong></div>
                 </div>
-                <div class="rank-column">
-                    <div class="rank-item"><span class="rank-num">01</span> <span class="rank-name">Suspended</span></div>
+
+                <div class="rank-section-box">
+                    <h3>Abteilungsleitung & Command</h3>
+                    <div class="rank-row"><span><span class="rank-id-num">22</span>Chief of Department</span><strong>Abteilungsleitung</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">21</span>Dep. Chief of Department</span><strong>Abteilungsleitung</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">17</span>Commander</span><strong>Command</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">16</span>Federal Operations Agent</span><strong>Command</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">15</span>Principal Field Agent</span><strong>Command</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">14</span>Executive Agent</span><strong>Command</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">13</span>Enforcement Agent</span><strong>Command</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">12</span>Senior Agent</span><strong>Command</strong></div>
+                </div>
+
+                <div class="rank-section-box">
+                    <h3>Spezial- & Agentenränge</h3>
+                    <div class="rank-row"><span><span class="rank-id-num">20</span>Special Agent</span><strong>Media / PR</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">19</span>Tactical Operator</span><strong>C.I.R.G. Rang</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">18</span>Department Specialist</span><strong>Department Rang</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">11</span>Junior Special Agent</span><strong>Mediabegleitung</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">10</span>Agent First Class</span><strong>Agent</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">09</span>Field Agent</span><strong>Agent</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">08</span>Agent</span><strong>Agent</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">07</span>New Agent Trainee</span><strong>Trainee</strong></div>
                 </div>
             </div>
         </section>
 
         <footer class="footer">
             <img class="footer-logo" src="https://i.imgur.com/PDg8yT2.png" alt="FIB Logo Footer">
-            <p>Vielen Dank für die Möglichkeit, mich vorzustellen.</p>
-            <div class="highlight">Director of Bureau auf das nächste Level zu bringen.</div>
-            <div class="footer-credits">Federal Investigation Bureau · Bewerbung 2026 · Vertraulich</div>
+            <p class="footer-quote">„Ein FIB, das konsequent nach Leistung bewertet, schafft Motivation und Fairness.“</p>
+            <p style="margin-bottom: 20px; color: var(--text-muted);">Vielen Dank für das Lesen meiner Bewerbung.</p>
+            <div class="footer-credits">FEDERAL INVESTIGATION BUREAU · LEADERSHIP APPLICATION · REPUBLIK CODES 2026</div>
         </footer>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        function enterApplication() {
+            const overlay = document.getElementById('intro-overlay');
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.visibility = 'hidden';
+            }, 600);
+        }
+
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    </script>
 </body>
 </html>
