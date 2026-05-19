@@ -23,6 +23,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -172,6 +173,27 @@
             flex-grow: 1;
             height: 1px;
             background: var(--border-color);
+        }
+
+        /* WELCOME SHEET BUTTON */
+        .action-btn {
+            background: transparent;
+            border: 1px solid var(--red-alert);
+            color: var(--red-alert);
+            font-family: var(--font-mono);
+            font-size: 12px;
+            padding: 12px 24px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            margin-top: 20px;
+            display: inline-block;
+        }
+        .action-btn:hover {
+            background: var(--red-alert);
+            color: #fff;
+            box-shadow: 0 0 15px var(--red-glow);
         }
 
         /* BADGE ID CARD LAYOUT */
@@ -427,6 +449,7 @@
     <nav class="sidebar">
         <div class="sidebar-header">FIB // RESTRUCTURING</div>
         <ul class="sidebar-menu">
+            <li><a href="#willkommen">00 // Einleitung</a></li>
             <li><a href="#biometrie">01 // Personalien</a></li>
             <li><a href="#motivation">02 // Leitgedanke</a></li>
             <li><a href="#profil">03 // Qualifikation</a></li>
@@ -445,6 +468,25 @@
             <h1 class="dossier-title">Direktions-Dossier</h1>
             <div class="dossier-sub">Eko Plaste // Dienstnummer #17450</div>
         </header>
+
+        <section id="willkommen" class="section-block">
+            <div class="section-tag">OFFIZIELLES ANSCHREIBEN // INDEX_00</div>
+            <h2 class="section-heading">Willkommen</h2>
+            
+            <div class="document-sheet" style="border-left: 3px solid var(--red-alert);">
+                <p class="text-paragraph" style="font-weight: bold; color: #fff; font-size: 16px; margin-bottom: 20px;">
+                    Sehr geehrtes Admin-Team und liebe Bürger,
+                </p>
+                <p class="text-paragraph">
+                    hiermit möchte ich die Chance nutzen, um mich als Leader des Federal Investigation Bureau (FIB) zu bewerben.
+                </p>
+                <p class="text-paragraph">
+                    Auf den folgenden Seiten präsentiere ich Ihnen ein paar essentielle Details über mich als Person, meinen bisherigen Werdegang im Staatsdienst und natürlich meine strategischen Pläne dafür, was in Zukunft mit dem FIB passieren wird, um die Behörde auf ein neues Level zu heben.
+                </p>
+                
+                <button class="action-btn" onclick="document.getElementById('biometrie').scrollIntoView();">Dossier öffnen & prüfen →</button>
+            </div>
+        </section>
 
         <section id="biometrie" class="section-block">
             <div class="section-tag">ARCHIV // INDEX_01</div>
@@ -473,7 +515,7 @@
             <div class="document-sheet">
                 <p class="text-paragraph">Die strategische Führung des Federal Investigation Bureau erfordert eine fundamentale Neuausrichtung weitab von rein repräsentativen Ansprüchen. Meine Bewerbung basiert auf der klaren Notwendigkeit, strukturelle Schwachstellen und administrative Defizite innerhalb der Bundesbehörde systematisch zurückzubauen.</p>
                 <p class="text-paragraph">Durch den tiefen Einblick in die internen Dynamiken der vergangenen Monate besitze ich ein präzises Bild davon, wo operative Prozesse blockiert werden. Ein Einzug in die Direktion bedeutet für mich die Verpflichtung, unnachgiebige Qualitätsstandards zu fixieren und diese auf jeder Hierarchieebene ausnahmslos durchzusetzen.</p>
-                <p class="text-paragraph" style="font-weight: 600; color: #fff;">Die Direktion ist kein repräsentativer Titel, sondern ein strategisches Werkzeug. Die Person an der Spitze bestimmt die Belastbarkeit, die Disziplin und das Ansehen der gesamten Institution. Ich bin bereit, diese Verantwortung vollumfänglich zu tragen.</p>
+                <p class="text-paragraph" style="font-weight: 600; color: #fff;">Die Direktion ist kein repräsentativer Titel, sondern ein strategiches Werkzeug. Die Person an der Spitze bestimmt die Belastbarkeit, die Disziplin und das Ansehen der gesamten Institution. Ich bin bereit, diese Verantwortung vollumfänglich zu tragen.</p>
             </div>
         </section>
 
@@ -488,7 +530,7 @@
 
                 <p class="text-paragraph">Unter <strong>Chief of Police Panam Veto</strong> erweiterte ich mein Spektrum als 28er in einem veränderten philosophischen Ansatz. Dies bewies meine Fähigkeit, mich schnell in neue Führungsstrukturen zu integrieren, operative Abläufe pragmatisch zu stützen und trotz struktureller Wechsel die administrative Stabilität zu wahren.</p>
 
-                <p class="text-paragraph">Zuletzt leitete ich über rund fünf Monate die <strong>CIRG innerhalb des FIB unter Steve Cock</strong>. Meine Kernaufgabe umfasste hier die strategische Koordination komplexer Ermittlungsverfahren, detaillierte Personalbewertung und die Implementierung neuer Qualitätsstandards. Ermittlungsakten wurden unter meiner Aufsicht nicht nur verwaltet, sondern gerichts- und systemfest aufgebaut.</p>
+                <p class="text-paragraph">Zuletzt leitete ich über rund f衔f Monate die <strong>CIRG innerhalb des FIB unter Steve Cock</strong>. Meine Kernaufgabe umfasste hier die strategische Koordination komplexer Ermittlungsverfahren, detaillierte Personalbewertung und die Implementierung neuer Qualitätsstandards. Ermittlungsakten wurden unter meiner Aufsicht nicht nur verwaltet, sondern gerichts- und systemfest aufgebaut.</p>
                 
                 <p class="text-paragraph" style="font-style: italic; color: var(--text-dark);">Führung bedeutet für mich, eine Organisation berechenbar, belastbar und handlungsfähig zu halten, unabhängig von internen oder externen Spannungen. Ich bin ein Mensch, der gerne führt, sich jedoch auch nicht scheut, selbst Anweisungen anzunehmen und umzusetzen.</p>
             </div>
