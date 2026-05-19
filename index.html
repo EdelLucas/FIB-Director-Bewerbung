@@ -42,13 +42,13 @@
             font-family: var(--font-mono);
             font-size: 4vw;
             font-weight: 900;
-            color: rgba(229, 46, 56, 0.02);
+            color: rgba(229, 46, 56, 0.015);
             transform: rotate(-15deg);
             pointer-events: none;
             z-index: 1;
         }
 
-        /* LEFT SIDEBAR NAVIGATION (Völlig anders als orga-12) */
+        /* LEFT SIDEBAR NAVIGATION */
         .sidebar {
             width: 260px;
             background-color: var(--bg-sidebar);
@@ -102,9 +102,9 @@
         /* MAIN CONTENT HOLDER */
         .content-container {
             margin-left: 260px;
-            flex-1: 1;
+            flex: 1;
             padding: 60px 40px;
-            max-width: 900px;
+            max-width: 950px;
             width: calc(100% - 260px);
         }
 
@@ -174,7 +174,7 @@
             background: var(--border-color);
         }
 
-        /* NEW BADGE ID CARD LAYOUT (Völlig neu) */
+        /* BADGE ID CARD LAYOUT */
         .id-badge-card {
             background: var(--bg-badge);
             border: 1px solid var(--border-color);
@@ -275,8 +275,8 @@
         .crit-list {
             list-style: none;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            grid-template-columns: 1fr;
+            gap: 12px;
         }
 
         .crit-list li {
@@ -290,12 +290,13 @@
         }
 
         .crit-list li::before {
-            content: "■";
+            content: "[-] ";
             color: var(--red-alert);
-            font-size: 8px;
+            font-family: var(--font-mono);
+            font-weight: bold;
         }
 
-        /* ORGANIGRAM GRID (3-Spaltig) */
+        /* ORGANIGRAM GRID (2-Spaltig) */
         .struct-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -322,10 +323,20 @@
         .struct-desc {
             font-size: 13px;
             color: var(--text-dark);
-            list-style: square;
-            padding-left: 15px;
+            list-style: none;
+            padding-left: 5px;
         }
-        .struct-desc li { margin-bottom: 6px; }
+        .struct-desc li { 
+            margin-bottom: 8px; 
+            position: relative;
+            padding-left: 14px;
+        }
+        .struct-desc li::before {
+            content: "▪";
+            color: var(--red-alert);
+            position: absolute;
+            left: 0;
+        }
 
         /* HIERARCHY MATRIX */
         .matrix-container {
@@ -347,19 +358,31 @@
             text-transform: uppercase;
             margin-bottom: 15px;
             letter-spacing: 1px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 5px;
         }
 
         .matrix-row {
             display: flex;
             justify-content: space-between;
             font-size: 13px;
-            padding: 6px 0;
+            padding: 8px 4px;
             border-bottom: 1px solid rgba(255,255,255,0.02);
         }
         .matrix-num {
             font-family: var(--font-mono);
-            color: var(--text-dark);
+            color: var(--red-alert);
+            font-weight: bold;
             margin-right: 10px;
+            background: rgba(229, 46, 56, 0.05);
+            padding: 1px 5px;
+        }
+        .matrix-row strong {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            font-weight: normal;
         }
 
         /* SIGNATURE AREA */
@@ -391,23 +414,25 @@
 
         @media (max-width: 1000px) {
             body { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 2px solid var(--border-color); }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 2px solid var(--border-color); padding: 20px; }
             .content-container { margin-left: 0; width: 100%; padding: 40px 20px; }
-            .id-badge-card, .struct-grid, .matrix-container, .crit-list { grid-template-columns: 1fr; }
+            .id-badge-card, .struct-grid, .matrix-container { grid-template-columns: 1fr; }
+            .struct-card[style] { grid-column: span 1 !important; }
+            .struct-desc[style] { grid-template-columns: 1fr !important; }
         }
     </style>
 </head>
 <body>
 
     <nav class="sidebar">
-        <div class="sidebar-header">FIB // ACQUISITION</div>
+        <div class="sidebar-header">FIB // RESTRUCTURING</div>
         <ul class="sidebar-menu">
             <li><a href="#biometrie">01 // Personalien</a></li>
             <li><a href="#motivation">02 // Leitgedanke</a></li>
             <li><a href="#profil">03 // Qualifikation</a></li>
             <li><a href="#laufbahn">04 // Dienstakte</a></li>
             <li><a href="#kriterien">05 // Voraussetzungen</a></li>
-            <li><a href="#optimierung">06 // Restrukturierung</a></li>
+            <li><a href="#optimierung">06 // Reformen</a></li>
             <li><a href="#struktur">07 // Organigramm</a></li>
             <li><a href="#hierarchie">08 // Rangordnung</a></li>
         </ul>
@@ -416,7 +441,7 @@
     <main class="content-container">
         
         <header class="dossier-header">
-            <div class="dossier-classification">RESTRICTED // APPLICANT INTERFACE</div>
+            <div class="dossier-classification">RESTRICTED // LEADER INTAKE STATUS</div>
             <h1 class="dossier-title">Direktions-Dossier</h1>
             <div class="dossier-sub">Eko Plaste // Dienstnummer #17450</div>
         </header>
@@ -436,7 +461,7 @@
                     <div class="badge-field"><div class="field-label">Bürger-ID</div><div class="field-value">#17450</div></div>
                     <div class="badge-field"><div class="field-label">Kryptonym / Discord</div><div class="field-value">Vinz1871</div></div>
                     <div class="badge-field"><div class="field-label">Aufenthaltsrecht</div><div class="field-value">Visum 64</div></div>
-                    <div class="badge-field" style="grid-column: span 2;"><div class="field-label">Wöchentliches Dienst-Kontingent</div><div class="field-value">Zwischen 35 und 70 Einsatzstunden</div></div>
+                    <div class="badge-field" style="grid-column: span 2;"><div class="field-label">Wöchentliches Dienst-Kontingent</div><div class="field-value">Zwischen 35 und 70 Einsatzstunden (5-10 Std. täglich)</div></div>
                 </div>
             </div>
         </section>
@@ -448,6 +473,7 @@
             <div class="document-sheet">
                 <p class="text-paragraph">Die strategische Führung des Federal Investigation Bureau erfordert eine fundamentale Neuausrichtung weitab von rein repräsentativen Ansprüchen. Meine Bewerbung basiert auf der klaren Notwendigkeit, strukturelle Schwachstellen und administrative Defizite innerhalb der Bundesbehörde systematisch zurückzubauen.</p>
                 <p class="text-paragraph">Durch den tiefen Einblick in die internen Dynamiken der vergangenen Monate besitze ich ein präzises Bild davon, wo operative Prozesse blockiert werden. Ein Einzug in die Direktion bedeutet für mich die Verpflichtung, unnachgiebige Qualitätsstandards zu fixieren und diese auf jeder Hierarchieebene ausnahmslos durchzusetzen.</p>
+                <p class="text-paragraph" style="font-weight: 600; color: #fff;">Die Direktion ist kein repräsentativer Titel, sondern ein strategisches Werkzeug. Die Person an der Spitze bestimmt die Belastbarkeit, die Disziplin und das Ansehen der gesamten Institution. Ich bin bereit, diese Verantwortung vollumfänglich zu tragen.</p>
             </div>
         </section>
 
@@ -456,10 +482,15 @@
             <h2 class="section-heading">Dienstliche Qualifikationsmatrix</h2>
             
             <div class="document-sheet">
-                <p class="text-paragraph">Mein Profil zeichnet sich durch die Führung krisenbehafteter Einheiten aus. Als **SWAT Leader unter Sophia Hagedorn** stand die Stabilisierung taktischer Einheiten unter dauerhafter Einsatzbelastung im Fokus. Durch strikte Strukturvorgaben und die Beseitigung administrativer Grauzonen konnte die Einsatzstärke jederzeit gesichert werden.</p>
-                <p class="text-paragraph">Eine über sechsmonatige Dienstzeit auf höchster administrativer Ebene (28er) **unter Elli Brandenburger** wurde vollständig **organisations-verwarnungsfrei** absolviert. Eine solche Konstanz über diesen langen Zeitraum belegt absolute Professionalität, fehlerfreie administrative Abläufe und ein Höchstmaß an Eigenkontrolle.</p>
-                <p class="text-paragraph">Unter **Chief of Police Panam Veto** konnte ich mich flexibel in veränderte behördliche Ausrichtungen einfügen, operative Konzepte pragmatisch unterstützen und administrative Konstanz gewährleisten.</p>
-                <p class="text-paragraph">Zuletzt lag mein Schwerpunkt über rund fünf Monate in der **Leitung der CIRG innerhalb des FIB unter Steve Cock**. Kernbereiche waren die Fallanalytik komplexer Ermittlungsverfahren sowie die lückenlose Leistungsevaluierung des unterstellten Personalbestands.</p>
+                <p class="text-paragraph">Mein operatives Profil wurde durch grundverschiedene Behördenstrukturen und Führungsphilosophien geschärft. Während meiner Zeit als <strong>SWAT Leader unter Sophia Hagedorn</strong> lag der Fokus auf der unmittelbaren Stabilisierung einer Spezialeinheit unter massiven internen und externen Belastungsproben. Hier war es essenziell, klare Befehlsketten zu etablieren, Grauzonen zu eliminieren und die operative Schlagkraft der Truppe lückenlos zu gewährleisten.</p>
+                
+                <p class="text-paragraph">Unter der Leitung von <strong>Elli Brandenburger</strong> absolvierte ich eine über sechsmonatige Dienstzeit auf administrativer Ebene (28er) – <strong>absolut frei von Organisations-Verwarnungen</strong>. Solch eine fehlerfreie Konstanz in einer hochfrequentierten Großbehörde resultiert aus bedingungsloser Selbstdisziplin, permanenter Eigenkontrolle und einem fehlerfreien Systemverständnis.</p>
+
+                <p class="text-paragraph">Unter <strong>Chief of Police Panam Veto</strong> erweiterte ich mein Spektrum als 28er in einem veränderten philosophischen Ansatz. Dies bewies meine Fähigkeit, mich schnell in neue Führungsstrukturen zu integrieren, operative Abläufe pragmatisch zu stützen und trotz struktureller Wechsel die administrative Stabilität zu wahren.</p>
+
+                <p class="text-paragraph">Zuletzt leitete ich über rund fünf Monate die <strong>CIRG innerhalb des FIB unter Steve Cock</strong>. Meine Kernaufgabe umfasste hier die strategische Koordination komplexer Ermittlungsverfahren, detaillierte Personalbewertung und die Implementierung neuer Qualitätsstandards. Ermittlungsakten wurden unter meiner Aufsicht nicht nur verwaltet, sondern gerichts- und systemfest aufgebaut.</p>
+                
+                <p class="text-paragraph" style="font-style: italic; color: var(--text-dark);">Führung bedeutet für mich, eine Organisation berechenbar, belastbar und handlungsfähig zu halten, unabhängig von internen oder externen Spannungen. Ich bin ein Mensch, der gerne führt, sich jedoch auch nicht scheut, selbst Anweisungen anzunehmen und umzusetzen.</p>
             </div>
         </section>
 
@@ -477,24 +508,28 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Rang 26 // Police Commander (SWAT)</td>
+                        <td><strong>Rang 26 // Police Commander</strong> (Leitung SWAT)</td>
                         <td>Sophia Hagedorn (LSPD)</td>
                         <td>1 Monat</td>
                     </tr>
                     <tr>
-                        <td>Rang 28 // Assistant Chief of Police</td>
+                        <td><strong>Rang 28 // Assistant Chief of Police</strong></td>
                         <td>Elli Brandenburger (LSPD)</td>
                         <td>6 Monate (Fehlerfrei)</td>
                     </tr>
                     <tr>
-                        <td>Rang 28 // Assistant Chief of Police</td>
+                        <td><strong>Rang 28 // Assistant Chief of Police</strong></td>
                         <td>Panam Veto (LSPD)</td>
                         <td>1 Monat</td>
                     </tr>
                     <tr>
-                        <td>Rang 24-25 // Chief of Department (CIRG)</td>
+                        <td><strong>Rang 24-25 // Chief of Department</strong> (Leitung CIRG)</td>
                         <td>Steve Cock (F.I.B.)</td>
                         <td>5 Monate</td>
+                    </tr>
+                    <tr style="background: rgba(229, 46, 56, 0.03); font-weight: bold;">
+                        <td colspan="2">Gesamtkontingent im aktiven Staatsdienst:</td>
+                        <td style="color: var(--red-alert);">1 Jahr und 5 Monate</td>
                     </tr>
                 </tbody>
             </table>
@@ -502,16 +537,22 @@
 
         <section id="kriterien" class="section-block">
             <div class="section-tag">ARCHIV // INDEX_05</div>
-            <h2 class="section-heading">Aufnahmerichtlinien</h2>
+            <h2 class="section-heading">Aufnahmerichtlinien & Zulassung</h2>
             
+            <div class="document-sheet" style="margin-bottom: 20px;">
+                <p class="text-paragraph"><strong>Staatsdienst-Mindestaktivität:</strong> Um Verzerrungen in der Arbeitsweise zu vermeiden, gilt eine dreimonatige Vordienstzeit in einer Exekutivbehörde als unverhandelbare Grundvoraussetzung. Das garantiert fundamentale Rechtskenntnisse.</p>
+                <p class="text-paragraph"><strong>Leistungsbasierte Re-Integrationsoption:</strong> Ehemalige Agenten, die durch herausragende Arbeitsleistung, unbedingte Disziplin und fachliche Exzellenz überzeugten, erhalten eine gezielte Option auf Rückkehr. Leistung sticht Seilschaft.</p>
+                <p class="text-paragraph"><strong>Analytisches Selektionsverfahren:</strong> Der Rekrutierungsprozess wird verschärft und simuliert reale, hochkomplexe Szenarien der Bureau-Arbeit. Bewerber müssen unter Stress rechtssicher, präzise und taktisch fehlerfrei agieren.</p>
+            </div>
+
             <ul class="crit-list">
-                <li>Mindestens 90 Tage aktiver Justizdienst</li>
-                <li>Mindest-Visumsstufe 20</li>
-                <li>Gefechtsausrüstung (Rucksack Level 3)</li>
-                <li>Sämtliche behördlichen Lizenzen</li>
-                <li>Makelloses Straf- und Dienstregister</li>
-                <li>30 Tage frei von FIBCO-Einträgen</li>
-                <li>Absolute Textsicherheit im Rechtssystem</li>
+                <li>Mindestens 90 Tage lückenloser Dienst in einer Justiz-/Exekutivbehörde</li>
+                <li>Mindest-Visumsstufe 20 zwingend erforderlich</li>
+                <li>Erweiterte Einsatzausrüstung (Inklusive Rucksack Stufe 3)</li>
+                <li>Sämtliche behördlichen Lizenzen (Führerschein, gesetzeskonformer Waffenschein)</li>
+                <li>Restlos unbelastetes Straf- und Dienstregister</li>
+                <li>Nachweisbar 30 Tage frei von FIBCO-Maßnahmen und Eintragungen</li>
+                <li>Absolute Textsicherheit und fundiertes Fachwissen im geltenden Recht der Republik</li>
             </ul>
         </section>
 
@@ -520,66 +561,82 @@
             <h2 class="section-heading">Strukturelle Reformen</h2>
             
             <div class="document-sheet">
-                <strong style="color:var(--red-alert); display:block; margin-bottom:10px; font-family:var(--font-mono);">1. Stopp von Micromanagement</strong>
-                <p class="text-paragraph">Die Direktion zieht sich aus dem operativen Alltagsgeschäft zurück. Verantwortung und Entscheidungskompetenzen werden vollständig an die jeweiligen Abteilungsleitungen übergeben, um Eigeninitiative zu stärken.</p>
+                <strong style="color:var(--red-alert); display:block; margin-bottom:10px; font-family:var(--font-mono);">1. DEZENTRALISIERUNG / STOPP VON MICROMANAGEMENT</strong>
+                <p class="text-paragraph">Die Direktion zieht sich aus dem operativen Alltagsgeschäft zurück. Verantwortung und Entscheidungskompetenzen werden vollständig an die jeweiligen Abteilungsleitungen übergeben, um Eigeninitiative zu stärken. Das bisher praktizierte Über-Eingreifen von oben demotiviert Führungskräfte und blockiert Prozesse. Unter meiner Führung agieren die Abteilungsleiter eigenverantwortlich innerhalb klar abgesteckter Befugnisse.</p>
             </div>
 
             <div class="document-sheet">
-                <strong style="color:var(--red-alert); display:block; margin-bottom:10px; font-family:var(--font-mono);">2. Fokus auf Exklusivität</strong>
-                <p class="text-paragraph">Die Aufnahmekriterien werden drastisch verschärft. Das FIB agiert wieder als elitäre Bundesbehörde, in der Qualität und charakterliche Eignung vor reiner Personalstärke stehen.</p>
+                <strong style="color:var(--red-alert); display:block; margin-bottom:10px; font-family:var(--font-mono);">2. FOKUS AUF EXKLUSIVITÄT STATT MASSENABFERTIGUNG</strong>
+                <p class="text-paragraph">Die Aufnahmekriterien werden drastisch verschärft. Das FIB agiert wieder als elitäre Bundesbehörde, in der Qualität und charakterliche Eignung vor reiner Personalstärke stehen. Bloße Online-Präsenz reicht nicht aus; gefordert werden intellektuelle Belastbarkeit, moralische Integrität und messbare Qualität im Ermittlungsdienst. Qualität steht über Quantität.</p>
             </div>
 
             <div class="document-sheet">
-                <strong style="color:var(--red-alert); display:block; margin-bottom:10px; font-family:var(--font-mono);">3. Meritokratisches System</strong>
-                <p class="text-paragraph">Beförderungen und Zuteilungen basieren ausschließlich auf messbaren Resultaten. Persönliche Seilschaften gewähren weder Schutz vor Sanktionen noch unverdiente Aufstiege.</p>
+                <strong style="color:var(--red-alert); display:block; margin-bottom:10px; font-family:var(--font-mono);">3. MERITOKRATISCHES SYSTEM (STRIKTE LEISTUNGSBEWERTUNG)</strong>
+                <p class="text-paragraph">Beförderungen und Zuteilungen basieren ausschließlich auf messbaren Resultaten. Persönliche Seilschaften gewähren weder Schutz vor Sanktionen noch unverdiente Aufstiege. Es wird nicht toleriert, dass produktive Mitarbeiter wegen Bagatellen reglementiert werden, während andere durch persönliche Kontakte geschützt bleiben.</p>
             </div>
         </section>
 
         <section id="struktur" class="section-block">
             <div class="section-tag">ARCHIV // INDEX_07</div>
-            <h2 class="section-heading">Abteilungsstruktur</h2>
+            <h2 class="section-heading">Das neue Abteilungsorganigramm</h2>
             
             <div class="struct-grid">
                 <div class="struct-card">
-                    <div class="struct-name">CIRG</div>
+                    <div class="struct-name">Critical Incident Response Group (CIRG)</div>
                     <ul class="struct-desc">
-                        <li>Taktische Spezialeinheit</li>
-                        <li>Hochrisikooperationen</li>
+                        <li>Spezialisierte Einheit für komplexe und zeitkritische Einsatzlagen.</li>
+                        <li>Übernahme von Hochrisikooperationen in enger Abstimmung mit staatlichen Behörden.</li>
+                        <li>Analyse und Koordination bei akuten Bedrohungsszenarien sowie Kooperation mit der CID.</li>
                     </ul>
                 </div>
                 <div class="struct-card">
-                    <div class="struct-name">CID</div>
+                    <div class="struct-name">Criminal Investigation Division (CID)</div>
                     <ul class="struct-desc">
-                        <li>Ermittlungsverfahren</li>
-                        <li>Zerschlagung organisierter Strukturen</li>
+                        <li>Führung und Koordination umfangreicher Ermittlungsverfahren.</li>
+                        <li>Beweissicherung, Auswertung und strukturierte Fallanalyse.</li>
+                        <li>Zusammenarbeit mit der Staatsanwaltschaft zur Zerschlagung organisierter Kriminalität.</li>
                     </ul>
                 </div>
                 <div class="struct-card">
                     <div class="struct-name">Corruption Office</div>
                     <ul class="struct-desc">
-                        <li>Innere Ermittlungen</li>
-                        <li>Überwachung der Amtspflichten</li>
+                        <li>Interne und externe Korruptionsermittlungen auf allen Ebenen.</li>
+                        <li>Überprüfung behördlicher Integrität und Aufarbeitung von Amtsmissbrauch.</li>
+                        <li>Diskrete Untersuchungen bei Verdachtsmomenten innerhalb staatlicher Strukturen.</li>
                     </ul>
                 </div>
                 <div class="struct-card">
-                    <div class="struct-name">Human Resources</div>
+                    <div class="struct-name">Human Resources (HR)</div>
                     <ul class="struct-desc">
-                        <li>Personalrekrutierung</li>
-                        <li>Leistungsberichte</li>
+                        <li>Auswahl, Bewertung und zukunftsorientierte Entwicklung des Personals.</li>
+                        <li>Durchführung vollkommen strukturierter Bewerbungs- und Einstellungsverfahren.</li>
+                        <li>Leistungsüberprüfung, Aktivitätsdokumentation und interne Evaluation.</li>
                     </ul>
                 </div>
                 <div class="struct-card">
                     <div class="struct-name">Training Division</div>
                     <ul class="struct-desc">
-                        <li>Ausbildungskonzepte</li>
-                        <li>Taktische Schulung</li>
+                        <li>Ausbildung neuer Mitglieder nach strengen, einheitlichen Standards.</li>
+                        <li>Regelmäßige Fortbildungen für die taktische Einsatzvorbereitung.</li>
+                        <li>Überprüfung rechtlicher und taktischer Kenntnisse im Feld.</li>
                     </ul>
                 </div>
                 <div class="struct-card">
-                    <div class="struct-name">LAW & PR</div>
+                    <div class="struct-name">LAW (Rechtsabteilung)</div>
                     <ul class="struct-desc">
-                        <li>Rechtliche Absicherung</li>
-                        <li>Zentrale Mediensteuerung</li>
+                        <li>Rechtsprüfung interner Maßnahmen und operativer Einsatzentscheidungen.</li>
+                        <li>Beratung der Direktion in komplexen juristischen Fragestellungen.</li>
+                        <li>Unterstützung bei der Erstellung absolut rechtssicherer Anordnungen.</li>
+                    </ul>
+                </div>
+                <div class="struct-card" style="grid-column: span 2;">
+                    <div class="struct-name">Public Relations (PR)</div>
+                    <ul class="struct-desc" style="display:grid; grid-template-columns: 1fr 1fr; gap: 0 20px; list-style: none;">
+                        <li><li>Darstellung der Behörde gegenüber Öffentlichkeit und Medien.</li></li>
+                        <li><li>Organisation und Durchführung von Pressekonferenzen.</li></li>
+                        <li><li>Aufbereitung von Ermittlungserfolgen und strukturellen Entwicklungen.</li></li>
+                        <li><li>Wahrung eines professionellen und souveränen Erscheinungsbildes des Bureaus.</li></li>
+                        <li><li>Schnittstellenkommunikation zwischen FIB und externen Institutionen.</li></li>
                     </ul>
                 </div>
             </div>
@@ -587,31 +644,63 @@
 
         <section id="hierarchie" class="section-block">
             <div class="section-tag">ARCHIV // INDEX_08</div>
-            <h2 class="section-heading">Rangmatrix</h2>
+            <h2 class="section-heading">Funktionale Rangmatrix</h2>
             
             <div class="matrix-container">
                 <div class="matrix-box">
-                    <h4>Direktion</h4>
-                    <div class="matrix-row"><span><span class="matrix-num">30</span>Director of FIB</span></div>
-                    <div class="matrix-row"><span><span class="matrix-num">29</span>Deputy Director</span></div>
-                    <div class="matrix-row"><span><span class="matrix-num">28</span>Assistant Director</span></div>
-                    <div class="matrix-row"><span><span class="matrix-num">27</span>Adv. Director</span></div>
+                    <h4>Bureau-Direktion</h4>
+                    <div class="matrix-row"><span><span class="matrix-num">30</span>Director of FIB</span><strong>Gesamtleitung</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">29</span>Deputy Director of FIB</span><strong>Stellvertretung</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">28</span>Assistant Director</span><strong>Administration</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">27</span>Adv. Director for Oversight</span><strong>Revision / Kuration</strong></div>
                 </div>
                 <div class="matrix-box">
                     <h4>High Command</h4>
-                    <div class="matrix-row"><span><span class="matrix-num">26</span>Inspector</span></div>
-                    <div class="matrix-row"><span><span class="matrix-num">25</span>Supervisory Head Agent</span></div>
-                    <div class="matrix-row"><span><span class="matrix-num">24</span>Supervisory Special Agent</span></div>
-                    <div class="matrix-row"><span><span class="matrix-num">23</span>Special Agent in Charge</span></div>
+                    <div class="matrix-row"><span><span class="matrix-num">26</span>Inspector</span><strong>Aufsicht</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">25</span>Supervisory Head Agent</span><strong>HC-Management</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">24</span>Supervisory Special Agent</span><strong>HC-Management</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">23</span>Special Agent in Charge</span><strong>Einsatzkoordination</strong></div>
+                </div>
+                <div class="matrix-box">
+                    <h4>Abteilungsleitung & Command</h4>
+                    <div class="matrix-row"><span><span class="matrix-num">22</span>Chief of Department</span><strong>Abteilungsleitung</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">21</span>Dep. Chief of Department</span><strong>Stellv. Abt.-Leitung</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">17</span>Commander</span><strong>Einsatzführung</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">16</span>Federal Operations Agent</span><strong>Einsatzführung</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">15</span>Principal Field Agent</span><strong>Führungsunterstützung</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">14</span>Executive Agent</span><strong>Führungsunterstützung</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">13</span>Enforcement Agent</span><strong>Supervision</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">12</span>Senior Agent</span><strong>Supervision</strong></div>
+                </div>
+                <div class="matrix-box">
+                    <h4>Agenten- & Spezialränge</h4>
+                    <div class="matrix-row"><span><span class="matrix-num">20</span>Special Agent</span><strong>Media / PR</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">19</span>Tactical Operator</span><strong>CIRG-Einsatzkraft</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">18</span>Department Specialist</span><strong>Fachexperte</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">11</span>Junior Special Agent</span><strong>Medienbegleitung</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">10</span>Agent First Class</span><strong>Außendienst</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">09</span>Field Agent</span><strong>Außendienst</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">08</span>Agent</span><strong>Außendienst</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">07</span>New Agent Trainee</span><strong>Anwärter</strong></div>
                 </div>
             </div>
         </section>
 
+        <section class="section-block" style="margin-bottom:0;">
+            <div class="section-tag">ARCHIV // INDEX_09</div>
+            <h2 class="section-heading">Schlusswort</h2>
+            <div class="document-sheet" style="border-left: 3px solid var(--red-alert);">
+                <p class="text-paragraph">Das Federal Investigation Bureau besitzt massives, ungenutztes Potenzial. Mit kompromissloser Führung und transparenten, sauberen Strukturen wird diese Behörde wieder das exzellente Niveau erreichen, das für eine Bundesbehörde zwingend erforderlich ist.</p>
+                <p class="text-paragraph">Ich habe meine Kompetenzen im Staatsdienst langfristig unter Beweis gestellt und Verantwortung getragen. Nun ist es an der Zeit, die strategischen Leitlinien selbst festzulegen. Mein Versprechen ist eine konsequente, leistungsorientierte und gerechte Führung.</p>
+                <p class="text-paragraph" style="margin-bottom:0; font-weight:bold; color:#fff; font-family:var(--font-mono);">Wird mir das Mandat erteilt, führe ich das FIB besonnen, strukturell unnachgiebig und rein leistungsorientiert. Meine Entscheidungen sind transparent, die Standards gelten ausnahmslos für jeden Agenten.</p>
+            </div>
+        </section>
+
         <footer class="closure-box">
-            <div class="system-end-tag">[TRANSMISSION SECURED // SYSTEM REPUBLIK 2026]</div>
+            <div class="system-end-tag">[DOCUMENT END // TRANSMISSION SECURED // REPUBLIK SYSTEM 2026]</div>
             <div class="signature-block">
                 <div class="sig-font">Eko Plaste</div>
-                <div class="system-end-tag">Bewerber für die Bundesdirektion</div>
+                <div class="system-end-tag">ID: 17450 // Bewerber für die Bundesdirektion</div>
             </div>
         </footer>
 
