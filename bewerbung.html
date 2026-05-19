@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIB Director Application</title>
+    <style>
+        :root {
+            --fib-blue: #0a192f;
+            --fib-gold: #c5a059;
+            --fib-light: #f4f6f9;
+            --text-dark: #333;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--fib-light);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--white);
+            margin: 30px;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-top: 8px solid var(--fib-gold);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--fib-blue);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: var(--fib-blue);
+            margin: 0;
+            font-size: 28px;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            color: var(--fib-gold);
+            text-transform: uppercase;
+            font-weight: bold;
+            margin: 5px 0 0 0;
+        }
+
+        /* Fortschrittsbalken */
+        .progress-container {
+            margin-bottom: 30px;
+        }
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 4px;
+            height: 10px;
+            width: 100%;
+        }
+        .progress-fill {
+            background: var(--fib-gold);
+            height: 100%;
+            width: 0%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        /* Formular Styling */
+        .section-title {
+            color: var(--fib-blue);
+            border-left: 4px solid var(--fib-gold);
+            padding-left: 10px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--fib-blue);
+        }
+
+        input[type="text"], input[type="number"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--fib-blue);
+            box-shadow: 0 0 5px rgba(10, 25, 47, 0.3);
+        }
+
+        /* Interaktives Accordion */
+        .accordion {
+            background-color: var(--fib-blue);
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 16px;
+            transition: 0.4s;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .active, .accordion:hover {
+            background-color: #132c52;
+        }
+
+        .panel {
+            padding: 0 18px;
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            border: 1px solid #ddd;
+            border-top: none;
+            margin-bottom: 15px;
+            border-radius: 0 0 4px 4px;
+        }
+
+        /* Button */
+        .btn-submit {
+            background-color: var(--fib-gold);
+            color: var(--fib-blue);
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 4px;
+            transition: background 0.3s;
+            text-transform: uppercase;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: #b08e49;
+            color: white;
+        }
+
+        #success-message {
+            display: none;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>FEDERAL INVESTIGATION BUREAU</h1>
+        <p>Bewerbungsportal: Director of Bureau</p>
+    </div>
+
+    <!-- Progress Tracker -->
+    <div class="progress-container">
+        <label>Bewerbungs-Fortschritt</label>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+    </div>
+
+    <form id="applicationForm">
+        <!-- Sektion 1: OOC -->
+        <h3 class="section-title">1. Out of Character (OOC)</h3>
+        <div class="form-group">
+            <label for="oocName">Name / Discord-Tag:</label>
+            <input type="text" id="oocName" class="tracked-input" required placeholder="z.B. Max Mustermann #1234">
+        </div>
+        <div class="form-group">
+            <label for="oocAlter">Alter:</label>
+            <input type="number" id="oocAlter" class="tracked-input" required min="16" placeholder="Dein echtes Alter">
+        </div>
+
+        <!-- Sektion 2: IC -->
+        <h3 class="section-title">2. In Character (IC)</h3>
+        <div class="form-group">
+            <label for="icName">Vollständiger IC-Name:</label>
+            <input type="text" id="icName" class="tracked-input" required placeholder="z.B. Agent Frank Tenpenny">
+        </div>
+        <div class="form-group">
+            <label for="icExp">Bisherige Erfahrungen im Staat (Fraktionen, Ränge):</label>
+            <textarea id="icExp" rows="4" class="tracked-input" required placeholder="Beschreibe deine Karriere beim LSPD, FIB oder Militär..."></textarea>
+        </div>
+
+        <!-- Sektion 3: Konzepte & Pläne (Interaktiv) -->
+        <h3 class="section-title">3. Fraktionskonzept (Klicken zum Öffnen)</h3>
+        
+        <button type="button" class="accordion">Meine Vision für das FIB</button>
+        <div class="panel">
+            <p style="padding-top: 15px;">
+                <label for="vision">Welche Richtung soll das FIB unter deiner Führung einschlagen?</label>
+                <textarea id="vision" rows="3" class="tracked-input" placeholder="Ziele, Korruptionsbekämpfung, Cybersicherheit..."></textarea>
+            </p>
+        </div>
+
+        <button type="button" class="accordion">Geplante Abteilungen</button>
+        <div class="panel">
+            <p style="padding-top: 15px;">
+                <label for="departments">Welche Sub-Fraktionen/Abteilungen planst du? (z.B. HR, SWAT, CID)</label>
+                <textarea id="departments" rows="3" class="tracked-input" placeholder="Strukturierung der Agenten..."></textarea>
+            </p>
+        </div>
+
+        <button type="button" class="accordion">Warum genau DU?</button>
+        <div class="panel">
+            <p style="padding-top: 15px;">
+                <label for="whyMe">Was zeichnet dich als perfekten Director aus?</label>
+                <textarea id="whyMe" rows="3" class="tracked-input" placeholder="Führungskompetenz, Durchsetzungsvermögen..."></textarea>
+            </p>
+        </div>
+
+        <!-- Absenden -->
+        <button type="submit" class="btn-submit">Bewerbung einreichen</button>
+    </form>
+
+    <div id="success-message">
+        ⚡ BEWERBUNG ERFOLGREICH ÜBERMITTELT. Die Heeresleitung des FIB wird sich in Kürze bei Ihnen melden. Akte gelockt.
+    </div>
+</div>
+
+<script>
+    // 1. Accordion Logik (Auf- und Zuklappen)
+    const acc = document.getElementsByClassName("accordion");
+    for (let i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            const panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
+
+    // 2. Interaktiver Fortschrittsbalken
+    const inputs = document.querySelectorAll('.tracked-input');
+    const progressFill = document.getElementById('progressFill');
+
+    inputs.forEach(input => {
+        input.addEventListener('input', updateProgress);
+    });
+
+    function updateProgress() {
+        let filledFields = 0;
+        inputs.forEach(input => {
+            if (input.value.trim() !== '') {
+                filledFields++;
+            }
+        });
+        const percentage = (filledFields / inputs.length) * 100;
+        progressFill.style.width = percentage + '%';
+    }
+
+    // 3. Formular Absenden Effekt
+    document.getElementById('applicationForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Verhindert Neuladen der Seite
+        document.getElementById('success-message').style.display = 'block';
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    });
+</script>
+
+</body>
+</html>
