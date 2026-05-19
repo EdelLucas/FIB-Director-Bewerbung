@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bewerbung zum 17. Director of F.I.B. | Eko Plaste</title>
+    <title>CONFIDENTIAL // AREA 51 // F.I.B. DIRECTOR APPLICATION</title>
     <style>
         :root {
-            --bg-dark: #1e1e1e;
-            --bg-card: #282828;
-            --accent-gold: #c5a059;
-            --text-main: #f5f5f5;
-            --text-muted: #a0a0a0;
-            --border-line: rgba(197, 160, 89, 0.25);
-            --glow-color: rgba(197, 160, 89, 0.35);
+            --bg-dark: #16191e;
+            --bg-card: #1f232b;
+            --accent-red: #da222a;
+            --accent-muted-red: rgba(218, 34, 42, 0.15);
+            --text-main: #e2e8f0;
+            --text-muted: #8a95a5;
+            --border-color: #2f3746;
+            --code-font: 'Courier New', Courier, monospace;
         }
 
         * {
@@ -28,136 +29,190 @@
             color: var(--text-main);
             overflow-x: hidden;
             line-height: 1.6;
+            background-image: radial-gradient(rgba(255,255,255,0.01) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+
+        /* WATERMARK BACKGROUND EFFECT */
+        body::before {
+            content: "RESTRICTED // TOP SECRET";
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-35deg);
+            font-family: var(--code-font);
+            font-size: 7vw;
+            font-weight: 900;
+            color: rgba(218, 34, 42, 0.03);
+            white-space: nowrap;
+            letter-spacing: 10px;
+            z-index: -1;
+            pointer-events: none;
         }
 
         /* INTRO OVERLAY */
         #intro-overlay {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: #151515;
+            background-color: #0b0d10;
             z-index: 9999;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.6s ease, visibility 0.6s;
+            transition: opacity 0.5s ease, visibility 0.5s;
         }
 
-        .intro-logo { width: 140px; margin-bottom: 25px; filter: drop-shadow(0 0 12px var(--glow-color)); }
-        .intro-title { font-size: 26px; letter-spacing: 5px; margin-bottom: 8px; font-weight: 700; text-align: center; }
-        .intro-subtitle { font-size: 13px; color: var(--accent-gold); letter-spacing: 3px; margin-bottom: 40px; text-transform: uppercase; }
-        .status-terminal { color: #00ffaa; font-size: 12px; margin-bottom: 30px; font-family: monospace; letter-spacing: 1px; }
-        .enter-btn { background: transparent; border: 2px solid var(--accent-gold); color: var(--accent-gold); padding: 12px 45px; font-size: 15px; cursor: pointer; transition: all 0.3s; font-weight: bold; letter-spacing: 2px; }
-        .enter-btn:hover { background: var(--accent-gold); color: #1e1e1e; box-shadow: 0 0 20px var(--glow-color); }
+        .intro-stamp {
+            border: 4px double var(--accent-red);
+            color: var(--accent-red);
+            padding: 15px 30px;
+            font-family: var(--code-font);
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            transform: rotate(-4deg);
+            margin-bottom: 30px;
+            box-shadow: 0 0 15px rgba(218, 34, 42, 0.1);
+        }
+        .intro-loading {
+            font-family: var(--code-font);
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+        .enter-btn {
+            background: var(--accent-muted-red);
+            border: 1px solid var(--accent-red);
+            color: #fff;
+            padding: 12px 40px;
+            font-size: 14px;
+            font-family: var(--code-font);
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .enter-btn:hover {
+            background: var(--accent-red);
+            box-shadow: 0 0 20px rgba(218, 34, 42, 0.4);
+        }
 
         /* NAVBAR */
-        .navbar { position: fixed; top: 0; left: 0; width: 100%; background: rgba(30, 30, 30, 0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border-line); z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; }
-        .nav-brand { display: flex; align-items: center; gap: 12px; font-weight: bold; letter-spacing: 2px; color: var(--accent-gold); }
-        .nav-brand img { width: 32px; }
-        .nav-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 11px; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; transition: color 0.3s; padding: 5px 0; }
-        .nav-links a:hover { color: var(--accent-gold); }
+        .navbar { position: fixed; top: 0; left: 0; width: 100%; background: rgba(22, 25, 30, 0.95); backdrop-filter: blur(5px); border-bottom: 2px solid var(--border-color); z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 12px 40px; }
+        .nav-brand { display: flex; align-items: center; gap: 10px; font-family: var(--code-font); font-weight: bold; color: var(--accent-red); font-size: 14px; }
+        .nav-brand span { color: var(--text-main); }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 11px; font-family: var(--code-font); text-transform: uppercase; font-weight: 600; letter-spacing: 1px; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--accent-red); }
 
-        /* LAYOUT CONTAINER */
-        .main-wrapper { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        /* MAIN LAYOUT */
+        .main-wrapper { max-width: 1050px; margin: 0 auto; padding: 0 20px; position: relative; }
         
         /* HERO */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border-bottom: 1px solid var(--border-line); }
-        .hero-logo { width: 180px; margin-bottom: 30px; filter: drop-shadow(0 0 10px rgba(0,0,0,0.5)); }
-        .hero-title { font-size: 42px; font-weight: 800; letter-spacing: 3px; margin-bottom: 10px; }
-        .hero-badge { background: rgba(197, 160, 89, 0.1); border: 1px solid var(--accent-gold); color: var(--accent-gold); padding: 6px 18px; font-size: 13px; letter-spacing: 2px; margin-bottom: 25px; font-weight: bold; }
-        .hero-sub { font-size: 22px; color: var(--text-main); font-weight: 600; letter-spacing: 1px; }
-        .hero-id { color: var(--accent-gold); font-size: 16px; margin-top: 5px; }
-        .scroll-down { margin-top: 60px; font-size: 11px; color: var(--accent-gold); cursor: pointer; letter-spacing: 2px; animation: bounce 2s infinite; }
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; text-align: left; border-bottom: 2px dashed var(--border-color); position: relative; }
+        .hero-stamp-mark { position: absolute; top: 15%; right: 5%; border: 3px solid rgba(255,255,255,0.07); color: rgba(255,255,255,0.07); padding: 10px 20px; font-family: var(--code-font); font-size: 20px; font-weight: bold; transform: rotate(15deg); letter-spacing: 3px; }
+        .hero-badge { color: var(--accent-red); font-family: var(--code-font); font-size: 14px; letter-spacing: 2px; margin-bottom: 15px; font-weight: bold; }
+        .hero-title { font-size: 46px; font-weight: 800; letter-spacing: -1px; margin-bottom: 15px; text-transform: uppercase; line-height: 1.1; }
+        .hero-sub { font-size: 24px; color: var(--text-main); font-family: var(--code-font); margin-bottom: 5px; }
+        .hero-id { background: var(--accent-muted-red); color: var(--accent-red); font-family: var(--code-font); font-size: 14px; padding: 3px 10px; border-radius: 3px; display: inline-block; }
+        .scroll-down { margin-top: 60px; font-family: var(--code-font); font-size: 11px; color: var(--text-muted); cursor: pointer; text-transform: uppercase; letter-spacing: 2px; }
+        .scroll-down span { color: var(--accent-red); }
 
         /* SECTIONS */
-        .section { padding: 110px 0 50px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .section:last-of-type { border-bottom: none; }
-        .section-tag { color: var(--accent-gold); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: bold; margin-bottom: 6px; }
-        .section-title { font-size: 30px; margin-bottom: 35px; font-weight: 700; letter-spacing: 1px; }
+        .section { padding: 110px 0 60px 0; border-bottom: 1px dashed var(--border-color); }
+        .section-tag { font-family: var(--code-font); color: var(--accent-red); font-size: 13px; font-weight: bold; margin-bottom: 8px; }
+        .section-title { font-size: 28px; margin-bottom: 35px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.5px; position: relative; display: inline-block; }
+        .section-title::after { content: ""; position: absolute; bottom: -6px; left: 0; width: 40px; height: 3px; background: var(--accent-red); }
         
-        /* TABLES & INFO */
-        .profile-container { display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; align-items: center; }
-        .profile-img-box { background: var(--bg-card); border: 1px solid var(--border-line); padding: 20px; text-align: center; border-radius: 4px; }
-        .profile-img-box img { width: 100%; border-radius: 2px; filter: grayscale(20%); }
+        /* DATA / TABLE STYLE */
+        .profile-container { display: grid; grid-template-columns: 1fr 1.6fr; gap: 40px; align-items: center; }
+        .profile-img-box { background: var(--bg-card); border: 2px solid var(--border-color); padding: 15px; position: relative; }
+        .profile-img-box::before { content: "FILE PHOTO"; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--accent-red); color: #fff; font-family: var(--code-font); font-size: 10px; padding: 2px 8px; font-weight: bold; letter-spacing: 1px; }
+        .profile-img-box img { width: 100%; filter: grayscale(100%) contrast(120%); opacity: 0.75; border: 1px solid var(--border-color); margin-bottom: 15px; }
+        
         .info-table { width: 100%; border-collapse: collapse; }
-        .info-table tr { border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-        .info-table td { padding: 16px 12px; font-size: 15px; }
-        .info-table td.label { color: var(--text-muted); font-weight: 500; width: 40%; }
+        .info-table tr { border-bottom: 1px solid var(--border-color); }
+        .info-table td { padding: 14px 10px; font-size: 15px; }
+        .info-table td.label { color: var(--text-muted); font-family: var(--code-font); text-transform: uppercase; font-size: 13px; width: 35%; }
         .info-table td.value { color: var(--text-main); font-weight: 600; }
 
-        /* TEXT BLOCKS */
-        .text-block { font-size: 15px; color: #e0e0e0; margin-bottom: 20px; text-align: justify; }
-        .text-highlight-box { background: rgba(197, 160, 89, 0.04); border-left: 4px solid var(--accent-gold); padding: 20px; margin-bottom: 25px; border-radius: 0 4px 4px 0; }
-        .text-highlight-box h4 { color: var(--accent-gold); margin-bottom: 8px; font-size: 16px; text-transform: uppercase; letter-spacing: 1px; }
+        /* FILES & DOSSIERS BLOCK */
+        .text-block { font-size: 15px; color: #cbd5e1; margin-bottom: 20px; text-align: justify; line-height: 1.7; }
+        .dossier-box { background: var(--bg-card); border: 1px solid var(--border-color); border-left: 4px solid var(--accent-red); padding: 25px; margin-bottom: 30px; position: relative; }
+        .dossier-box h4 { font-family: var(--code-font); color: var(--accent-red); margin-bottom: 12px; font-size: 15px; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; }
+        .dossier-box h4::before { content: "[CASE_FILE]"; font-size: 11px; opacity: 0.5; }
 
-        /* GRID SYSTEMS */
-        .dept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-        .dept-card { background: var(--bg-card); border-top: 3px solid var(--accent-gold); border-left: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 25px; border-radius: 4px; }
-        .dept-title { color: var(--text-main); font-weight: 700; margin-bottom: 12px; font-size: 16px; letter-spacing: 1px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; text-transform: uppercase; }
+        /* DEPARTMENTS CARD GRID */
+        .dept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .dept-card { background: var(--bg-card); border: 1px solid var(--border-color); padding: 25px; position: relative; }
+        .dept-card::before { content: "SUB-SYS // ACTIVE"; position: absolute; top: 12px; right: 15px; font-family: var(--code-font); font-size: 9px; color: #10b981; opacity: 0.7; }
+        .dept-title { color: #fff; font-weight: 700; margin-bottom: 14px; font-size: 15px; font-family: var(--code-font); text-transform: uppercase; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; letter-spacing: 0.5px; }
         .dept-list { list-style: none; }
-        .dept-list li { font-size: 14px; color: #d0d0d0; margin-bottom: 8px; padding-left: 15px; position: relative; text-align: left; }
-        .dept-list li::before { content: "▪"; color: var(--accent-gold); position: absolute; left: 0; font-size: 10px; top: 1px; }
+        .dept-list li { font-size: 14px; color: #94a3b8; margin-bottom: 10px; padding-left: 18px; position: relative; }
+        .dept-list li::before { content: "»"; color: var(--accent-red); position: absolute; left: 0; font-weight: bold; }
 
-        /* HISTORY TABLE */
-        .history-table { width: 100%; border-collapse: collapse; background: var(--bg-card); border: 1px solid var(--border-line); border-radius: 4px; overflow: hidden; }
-        .history-table th { background: rgba(197, 160, 89, 0.1); color: var(--accent-gold); text-align: left; padding: 15px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
-        .history-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 15px; }
+        /* HISTORY INDEX TABLE */
+        .history-table { width: 100%; border-collapse: collapse; background: var(--bg-card); border: 1px solid var(--border-color); }
+        .history-table th { background: rgba(0,0,0,0.2); color: var(--text-main); font-family: var(--code-font); text-align: left; padding: 15px; font-size: 13px; text-transform: uppercase; border-bottom: 2px solid var(--border-color); letter-spacing: 1px; }
+        .history-table td { padding: 15px; border-bottom: 1px solid var(--border-color); font-size: 15px; }
         .history-table tr:last-child td { border-bottom: none; }
 
-        /* RÄNGE SYSTEM */
-        .rank-main-container { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .rank-section-box { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 4px; }
-        .rank-section-box h3 { color: var(--accent-gold); font-size: 15px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border-line); padding-bottom: 6px; }
-        .rank-row { display: flex; justify-content: space-between; padding: 8px 5px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 14px; }
-        .rank-id-num { color: var(--accent-gold); font-weight: bold; font-family: monospace; margin-right: 10px; }
+        /* RANKS MATRIX SYSTEM */
+        .rank-main-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .rank-section-box { background: var(--bg-card); border: 1px solid var(--border-color); padding: 22px; }
+        .rank-section-box h3 { color: var(--text-main); font-family: var(--code-font); font-size: 14px; margin-bottom: 18px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px dashed var(--border-color); padding-bottom: 8px; display: flex; justify-content: space-between; }
+        .rank-section-box h3::after { content: "SECURE_LNK"; font-size: 10px; color: var(--accent-red); opacity: 0.6; }
+        .rank-row { display: flex; justify-content: space-between; padding: 9px 5px; border-bottom: 1px solid rgba(255,255,255,0.02); font-size: 14px; }
+        .rank-id-num { color: var(--accent-red); font-weight: bold; font-family: var(--code-font); margin-right: 12px; background: rgba(218,34,42,0.05); padding: 1px 6px; border-radius: 2px; }
+        .rank-row strong { font-family: var(--code-font); font-size: 12px; color: var(--text-muted); font-weight: normal; text-transform: uppercase; }
 
-        /* LISTS */
+        /* REQUIREMENT LISTS */
         .bullet-list { list-style: none; margin-bottom: 20px; }
-        .bullet-list li { font-size: 15px; margin-bottom: 10px; padding-left: 20px; position: relative; }
-        .bullet-list li::before { content: "✔"; color: var(--accent-gold); position: absolute; left: 0; }
+        .bullet-list li { font-size: 15px; margin-bottom: 12px; padding-left: 25px; position: relative; color: #cbd5e1; }
+        .bullet-list li::before { content: "[✓]"; color: var(--accent-red); font-family: var(--code-font); position: absolute; left: 0; font-size: 14px; font-weight: bold; }
 
-        /* FOOTER */
-        .footer { text-align: center; padding: 90px 0 50px 0; border-top: 1px solid var(--border-line); margin-top: 50px; position: relative; }
-        .footer-logo { width: 110px; margin-bottom: 20px; opacity: 0.8; }
-        .footer-quote { font-size: 16px; color: var(--accent-gold); font-weight: 600; font-style: italic; margin-bottom: 10px; }
-        .footer-credits { font-size: 12px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
+        /* FOOTER / SIGN-OFF */
+        .footer { text-align: center; padding: 100px 0 60px 0; border-top: 2px dashed var(--border-color); margin-top: 60px; position: relative; }
+        .footer-logo { width: 90px; margin-bottom: 25px; filter: grayscale(100%); opacity: 0.2; }
+        .footer-quote { font-family: var(--code-font); font-size: 14px; color: var(--accent-red); margin-bottom: 15px; letter-spacing: 1px; text-transform: uppercase; }
+        .footer-credits { font-size: 11px; color: var(--text-muted); font-family: var(--code-font); letter-spacing: 1px; }
         
-        .signature-box { position: absolute; bottom: 50px; right: 50px; text-align: right; color: #fff; font-size: 14px; }
-        .signature-name { font-family: 'Brush Script MT', cursive; font-size: 28px; color: #fff; opacity: 0.9; margin-bottom: 5px; }
+        .signature-box { position: absolute; bottom: 60px; right: 20px; text-align: right; }
+        .signature-name { font-family: 'Courier New', Courier, serif; font-style: italic; font-size: 24px; color: #fff; font-weight: bold; letter-spacing: -1px; margin-bottom: 4px; opacity: 0.85; }
+        .signature-line { font-family: var(--code-font); font-size: 12px; color: var(--text-muted); text-transform: uppercase; }
 
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-8px); } 60% { transform: translateY(-4px); } }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-6px); } 60% { transform: translateY(-3px); } }
 
         @media (max-width: 950px) {
             .profile-container, .dept-grid, .rank-main-container { grid-template-columns: 1fr; }
             .nav-links { display: none; }
-            .navbar { padding: 15px 20px; }
-            .hero-title { font-size: 32px; }
-            .signature-box { position: relative; bottom: 0; right: 0; text-align: center; margin-top: 40px; }
+            .navbar { padding: 12px 20px; }
+            .hero-title { font-size: 34px; }
+            .signature-box { position: relative; bottom: 0; right: 0; text-align: center; margin-top: 50px; }
+            .dept-card style { grid-column: span 1; }
         }
     </style>
 </head>
 <body>
 
     <div id="intro-overlay">
-        <img class="intro-logo" src="https://i.imgur.com/PDg8yT2.png" alt="FIB Logo">
-        <div class="intro-title">FEDERAL INVESTIGATION BUREAU</div>
-        <div class="intro-subtitle">Official Leadership Application</div>
-        <div class="status-terminal">ESTABLISHING SECURE PROTOCOL... ACCESS GRANTED</div>
-        <button class="enter-btn" onclick="enterApplication()">SYSTEM BETRETEN</button>
+        <div class="intro-stamp">TOP SECRET // CLASSIFIED</div>
+        <div class="intro-loading">DECRYPTING BUREAU DOSSIER DIR-17450... COMPLETED</div>
+        <button class="enter-btn" onclick="enterApplication()">AKTE ÖFFNEN</button>
     </div>
 
     <nav class="navbar">
         <div class="nav-brand">
-            <img src="https://i.imgur.com/PDg8yT2.png" alt="FIB Emblem">
-            <span>FIB APPLICATION</span>
+            <span>F.I.B. DOSSIER //</span> <span>DIR-17450</span>
         </div>
         <div class="nav-links">
-            <a href="#allgemein">Allgemein</a>
+            <a href="#allgemein">Datenblatt</a>
             <a href="#kompetenzen">Kompetenzen</a>
-            <a href="#werdegang">Werdegang</a>
+            <a href="#werdegang">Laufbahn</a>
             <a href="#strategie">Strategie</a>
-            <a href="#voraussetzung">Voraussetzungen</a>
+            <a href="#voraussetzung">Kriterien</a>
             <a href="#abteilungen">Struktur</a>
             <a href="#raenge">Hierarchie</a>
             <a href="#motivation">Motivation</a>
@@ -167,39 +222,39 @@
     <div class="main-wrapper">
         
         <header class="hero">
-            <img class="hero-logo" src="https://i.imgur.com/PDg8yT2.png" alt="FIB Emblem">
-            <div class="hero-badge">BEWERBUNG ZUM 17. DIRECTOR OF F.I.B.</div>
-            <h1 class="hero-title">FEDERAL INVESTIGATION BUREAU</h1>
+            <div class="hero-stamp-mark">RESTRICTED</div>
+            <div class="hero-badge">[CLASSIFIED SUBMISSION]</div>
+            <h1 class="hero-title">FEDERAL INVESTIGATION<br>BUREAU</h1>
             <p class="hero-sub">Eko Plaste</p>
-            <p class="hero-id">ID: 17450</p>
-            <div class="scroll-down" onclick="scrollToSection('allgemein')">DIREKTION SPEICHER abrufen<br>↓</div>
+            <p class="hero-id">FILE-ID: #17450</p>
+            <div class="scroll-down" onclick="scrollToSection('allgemein')"><span>[DECR]</span> DATENSTREAMS ABGEIFEN ↓</div>
         </header>
 
         <section id="allgemein" class="section">
-            <div class="section-tag">01 / Datenblatt</div>
+            <div class="section-tag">INDEX // 01</div>
             <h2 class="section-title">Allgemeine Informationen</h2>
             
             <div class="profile-container">
                 <div class="profile-img-box">
-                    <img src="https://i.imgur.com/PDg8yT2.png" alt="FIB Agent">
+                    <img src="https://i.imgur.com/PDg8yT2.png" alt="Bureau Logo">
                 </div>
                 <div>
                     <table class="info-table">
-                        <tr><td class="label">OOC Name</td><td class="value">Vincent</td></tr>
-                        <tr><td class="label">Alter</td><td class="value">28 Jahre</td></tr>
-                        <tr><td class="label">Discord</td><td class="value">Vinz1871</td></tr>
-                        <tr><td class="label">IC Name</td><td class="value">Eko Plaste</td></tr>
-                        <tr><td class="label">ID</td><td class="value">17450</td></tr>
-                        <tr><td class="label">Onlinezeit</td><td class="value">5 - 10 Stunden / Tag</td></tr>
-                        <tr><td class="label">Visumstufe</td><td class="value">64</td></tr>
+                        <tr><td class="label">OOC ID / Name</td><td class="value">Vincent</td></tr>
+                        <tr><td class="label">Alter des Subjekts</td><td class="value">28 Jahre</td></tr>
+                        <tr><td class="label">Kryptonym / Discord</td><td class="value">Vinz1871</td></tr>
+                        <tr><td class="label">IC Identität</td><td class="value">Eko Plaste</td></tr>
+                        <tr><td class="label">Bürger ID</td><td class="value">17450</td></tr>
+                        <tr><td class="label">Einsatzzeitraum</td><td class="value">5 - 10 Stunden / Tag</td></tr>
+                        <tr><td class="label">Visumsklasse</td><td class="value">Stufe 64</td></tr>
                     </table>
                 </div>
             </div>
         </section>
 
         <section id="kompetenzen" class="section">
-            <div class="section-tag">02 / Kompetenzen</div>
-            <h2 class="section-title">Was mich als Leader auszeichnet</h2>
+            <div class="section-tag">INDEX // 02</div>
+            <h2 class="section-title">Eignungsprofil & Kompetenzen</h2>
             
             <p class="text-block">Meine Laufbahn ist durch verschiedene Führungsphasen und unterschiedliche Leitungsstile geprägt. Als <strong>SWAT Leader unter Sophia Hagedorn</strong> habe ich eine Einheit geführt, während interne Spannungen und operativer Druck gleichzeitig präsent waren. In dieser Phase ging es um Stabilität, Durchsetzungsfähigkeit und klare Hierarchien. Ich habe Strukturen festgezogen, Verantwortlichkeiten eindeutig definiert und die Einsatzbereitschaft der Einheit konstant gehalten.</p>
             
@@ -209,47 +264,47 @@
 
             <p class="text-block">Die letzten rund fünf Monate war ich im <strong>FIB unter Steve Cock als CIRG-Leiter</strong> eingesetzt. Dort lag mein Schwerpunkt auf Koordination, Analyse und interner Strukturarbeit. Ermittlungen wurden nicht nur begleitet, sondern systematisch aufgebaut. Personal wurde gezielt eingesetzt, Abläufe überprüft und Leistungsstandards definiert.</p>
 
-            <div class="text-highlight-box">
-                <h4>Führungsphilosophie</h4>
-                <p class="text-block" style="margin-bottom:0;">Ich kenne sowohl die Perspektive des operativen Leiters als auch die des strategisch eingebundenen Bereichsverantwortlichen. Führung bedeutet für mich, eine Organisation berechenbar, belastbar und handlungsfähig zu halten, unabhängig von internen oder externen Spannungen. Ich bin ein Mensch, der gerne führt, sich jedoch auch nicht scheut, selbst Anweisungen anzunehmen und umzusetzen.</p>
+            <div class="dossier-box">
+                <h4>Direktionsphilosophie</h4>
+                <p class="text-block" style="margin-bottom:0; color:#fff;">Ich kenne sowohl die Perspektive des operativen Leiters als auch die des strategisch eingebundenen Bereichsverantwortlichen. Führung bedeutet für mich, eine Organisation berechenbar, belastbar und handlungsfähig zu halten, unabhängig von internen oder externen Spannungen. Ich bin ein Mensch, der gerne führt, sich jedoch auch nicht scheut, selbst Anweisungen anzunehmen und umzusetzen.</p>
             </div>
         </section>
 
         <section id="werdegang" class="section">
-            <div class="section-tag">03 / Laufbahn</div>
-            <h2 class="section-title">Mein Werdegang</h2>
+            <div class="section-tag">INDEX // 03</div>
+            <h2 class="section-title">Diensthistorie / Laufbahn</h2>
             
             <table class="history-table">
                 <thead>
                     <tr>
-                        <th>Position / Rang</th>
-                        <th>Leitung / Behörde</th>
-                        <th>Dauer</th>
+                        <th>Zugehöriger Rang / Funktion</th>
+                        <th>Vorgesetzte Direktion / Behörde</th>
+                        <th>Dienstzeitraum</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>26. Police Commander</strong> (SWAT Leiter)</td>
+                        <td><strong>Rang 26: Police Commander</strong> (SWAT Leiter)</td>
                         <td>Sophia Hagedorn</td>
                         <td>1 Monat</td>
                     </tr>
                     <tr>
-                        <td><strong>28. Assistant Chief of Police</strong></td>
+                        <td><strong>Rang 28: Assistant Chief of Police</strong></td>
                         <td>Elli Brandenburger</td>
-                        <td>6 Monate (ohne Orgawarn)</td>
+                        <td>6 Monate (Verwarnungsfrei)</td>
                     </tr>
                     <tr>
-                        <td><strong>28. Assistant Chief of Police</strong></td>
+                        <td><strong>Rang 28: Assistant Chief of Police</strong></td>
                         <td>Panam Veto</td>
                         <td>1 Monat</td>
                     </tr>
                     <tr>
-                        <td><strong>24. / 25. Chief of Department</strong> (CIRG Leiter)</td>
-                        <td>Steve Cock (FIB)</td>
+                        <td><strong>Rang 24. / 25. Chief of Department</strong> (CIRG Leiter)</td>
+                        <td>Steve Cock (F.I.B.)</td>
                         <td>5 Monate</td>
                     </tr>
-                    <tr style="background: rgba(197, 160, 89, 0.05);">
-                        <td colspan="2"><strong>Gesamtzeit im Staatsdienst:</strong></td>
+                    <tr style="background: rgba(218, 34, 42, 0.04);">
+                        <td colspan="2"><strong>Gesamter Staatsdienst nachweisbar:</strong></td>
                         <td><strong>1 Jahr und 5 Monate</strong></td>
                     </tr>
                 </tbody>
@@ -257,48 +312,48 @@
         </section>
 
         <section id="strategie" class="section">
-            <div class="section-tag">04 / Strategie</div>
-            <h2 class="section-title">Verbesserungsvorschläge</h2>
+            <div class="section-tag">INDEX // 04</div>
+            <h2 class="section-title">Strukturelle Optimierungsvorschläge</h2>
             
-            <div class="text-highlight-box">
-                <h4>1. Weniger Micromanagement</h4>
+            <div class="dossier-box">
+                <h4>1. Reduzierung von Micromanagement</h4>
                 <p class="text-block" style="margin-bottom:0;">Die Direktion hat die Aufgabe, strategische Leitlinien zu setzen und Ergebnisse zu kontrollieren. Operative Detailarbeit gehört in die Verantwortung der jeweiligen Abteilungen. In der Vergangenheit wurde auf höchster Ebene häufig zu tief in laufende Prozesse eingegriffen. Das schwächt die Eigenverantwortung und hemmt die Entwicklung starker Führungspersönlichkeiten innerhalb der Behörde. Unter meiner Leitung erhalten Abteilungsleiter und ihre Stellvertreter klar definierte Entscheidungsräume.</p>
             </div>
 
-            <div class="text-highlight-box">
-                <h4>2. Elitäre Organisation</h4>
+            <div class="dossier-box">
+                <h4>2. Wiederherstellung einer elitären Organisation</h4>
                 <p class="text-block" style="margin-bottom:0;">Das FIB soll wieder als exklusive Bundesbehörde wahrgenommen werden. Eine Aufnahme darf kein Standardverfahren sein. Die Anforderungen an Bewerber werden angehoben, sowohl fachlich als auch charakterlich. Aktivität allein reicht nicht aus. Erwartet werden Belastbarkeit, Integrität und nachweisbare Leistungsfähigkeit. Interne Ausbildungs- und Prüfungsphasen werden konsequent umgesetzt. Qualität vor Quantität ist dabei oberstes Prinzip.</p>
             </div>
 
-            <div class="text-highlight-box">
-                <h4>3. Meritokratische Prinzipien</h4>
+            <div class="dossier-box">
+                <h4>3. Meritokratische Prinzipien (Das Leistungsprinzip)</h4>
                 <p class="text-block" style="margin-bottom:0;">Leistung muss der einzige Maßstab für Aufstieg und Einfluss sein. Beförderungen, Sonderrechte und Verantwortungsbereiche orientieren sich an messbaren Ergebnissen, Disziplin und Verlässlichkeit. Persönliche Nähe zur Führungsebene darf weder Vorteile noch Schutz bieten. Es darf nicht vorkommen, dass engagierte Mitglieder für geringfügige Fehler öffentlich kritisiert werden, während andere aufgrund persönlicher Beziehungen unbehelligt bleiben.</p>
             </div>
         </section>
 
         <section id="voraussetzung" class="section">
-            <div class="section-tag">05 / Kriterien</div>
-            <h2 class="section-title">Einstellungsvoraussetzungen</h2>
+            <div class="section-tag">INDEX // 05</div>
+            <h2 class="section-title">Zulassungs- & Einstellungskriterien</h2>
             
             <p class="text-block"><strong>Mindestdauer im Staatsdienst:</strong> Voraussetzung für eine Bewerbung ist eine mindestens dreimonatige Tätigkeit im Staatsdienst. Diese Zeit dient als Nachweis für grundlegende Erfahrung, Verlässlichkeit und ein Verständnis behördlicher Abläufe.</p>
             <p class="text-block"><strong>Wiedereinstellung leistungsstarker Mitglieder:</strong> Ehemalige Mitglieder des FIB, die durch konstante Aktivität, Disziplin und fachliche Stärke aufgefallen sind, erhalten die Möglichkeit einer Rückkehr. Maßgeblich ist die dokumentierte Leistung innerhalb der Behörde, nicht persönliche Beziehungen.</p>
             <p class="text-block"><strong>Strukturiertes Aufnahmeverfahren:</strong> Das Auswahlverfahren wird in seiner Komplexität die tatsächliche Arbeit im FIB abbilden. Gefordert werden analytisches Denken, strukturiertes Vorgehen und sichere Anwendung der geltenden Gesetze.</p>
 
-            <h3 style="color:var(--accent-gold); font-size:16px; margin:25px 0 15px 0; text-transform:uppercase; letter-spacing:1px;">Allgemeine Voraussetzungen (Übersicht):</h3>
+            <h3 style="color:#fff; font-size:14px; margin:25px 0 15px 0; font-family:var(--code-font); text-transform:uppercase;">Eckdaten der Grundvoraussetzung:</h3>
             <ul class="bullet-list">
-                <li>Mindestens 3 Monate aktiver Staatsdienst</li>
-                <li>Visum Stufe 20</li>
-                <li>Rucksack Level 3</li>
-                <li>Gültiger Führerschein und Waffenschein</li>
-                <li>Absolut straffreie Akte</li>
-                <li>30 Tage FIBCO-frei</li>
-                <li>Exzellente Kenntnisse der aktuellen Gesetzeslage</li>
+                <li>Mindestens 3 Monate aktiver Dienst bei einer Exekutivbehörde</li>
+                <li>Visumsklasse 20 zwingend erforderlich</li>
+                <li>Gefechtsausrüstung (Rucksack Level 3)</li>
+                <li>Gültige Fahrerlaubnis und Waffenschein (Waffengesetzkonform)</li>
+                <li>Absolut makellose Dienst- und Strafakte</li>
+                <li>30 Tage Frist ohne FIBCO-Eintragungen</li>
+                <li>Fundiertes Fachwissen über die aktuelle Gesetzeslage</li>
             </ul>
         </section>
 
         <section id="abteilungen" class="section">
-            <div class="section-tag">06 / Struktur</div>
-            <h2 class="section-title">Abteilungskonzept</h2>
+            <div class="section-tag">INDEX // 06</div>
+            <h2 class="section-title">Abteilungsorganigramm</h2>
             
             <div class="dept-grid">
                 <div class="dept-card">
@@ -329,23 +384,23 @@
                     <div class="dept-title">Human Resources (HR)</div>
                     <ul class="dept-list">
                         <li>Auswahl, Bewertung und zukunftsorientierte Entwicklung des Personals.</li>
-                        <li>Durchführung strukturierter Bewerbungs- und Einstellungsverfahren.</li>
+                        <li>Durchführung vollkommen strukturierter Bewerbungs- und Einstellungsverfahren.</li>
                         <li>Leistungsüberprüfung, Aktivitätsdokumentation und interne Evaluation.</li>
                     </ul>
                 </div>
                 <div class="dept-card">
                     <div class="dept-title">Training Division</div>
                     <ul class="dept-list">
-                        <li>Ausbildung neuer Mitglieder nach einheitlichen Standards.</li>
-                        <li>Regelmäßige Fortbildungen für taktische Einsatzvorbereitung.</li>
-                        <li>Überprüfung rechtlicher und taktischer Kenntnisse.</li>
+                        <li>Ausbildung neuer Mitglieder nach strengen, einheitlichen Standards.</li>
+                        <li>Regelmäßige Fortbildungen für die taktische Einsatzvorbereitung.</li>
+                        <li>Überprüfung rechtlicher und taktischer Kenntnisse im Feld.</li>
                     </ul>
                 </div>
                 <div class="dept-card">
                     <div class="dept-title">LAW (Rechtsabteilung)</div>
                     <ul class="dept-list">
                         <li>Rechtsprüfung interner Maßnahmen und operativer Einsatzentscheidungen.</li>
-                        <li>Beratung der Direktion in juristischen Fragestellungen.</li>
+                        <li>Beratung der Direktion in komplexen juristischen Fragestellungen.</li>
                         <li>Unterstützung bei der Erstellung absolut rechtssicherer Anordnungen.</li>
                     </ul>
                 </div>
@@ -353,18 +408,18 @@
                     <div class="dept-title">Public Relations (PR)</div>
                     <ul class="dept-list" style="display:grid; grid-template-columns: 1fr 1fr; gap: 0 20px;">
                         <li>Darstellung der Behörde gegenüber Öffentlichkeit und Medien.</li>
-                        <li>Organisation von Pressekonferenzen.</li>
-                        <li>Aufbereitung von Erfolgen und strukturellen Entwicklungen.</li>
-                        <li>Wahrung eines professionellen und souveränen Erscheinungsbildes.</li>
-                        <li>Kommunikation zwischen FIB und externen Institutionen.</li>
+                        <li>Organisation und Durchführung von Pressekonferenzen.</li>
+                        <li>Aufbereitung von Ermittlungserfolgen und strukturellen Entwicklungen.</li>
+                        <li>Wahrung eines professionellen und souveränen Erscheinungsbildes des Bureaus.</li>
+                        <li>Schnittstellenkommunikation zwischen FIB und externen Institutionen.</li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section id="raenge" class="section">
-            <div class="section-tag">07 / Hierarchie</div>
-            <h2 class="section-title">Das offizielle Rangkonzept</h2>
+            <div class="section-tag">INDEX // 07</div>
+            <h2 class="section-title">Hierarchische Rangmatrix</h2>
             
             <div class="rank-main-container">
                 <div class="rank-section-box">
@@ -372,7 +427,7 @@
                     <div class="rank-row"><span><span class="rank-id-num">30</span>Director of FIB</span><strong>Leitung</strong></div>
                     <div class="rank-row"><span><span class="rank-id-num">29</span>Deputy Director of FIB</span><strong>Dep. Leitung</strong></div>
                     <div class="rank-row"><span><span class="rank-id-num">28</span>Assistant Director</span><strong>Ass. Leitung</strong></div>
-                    <div class="rank-row"><span><span class="rank-id-num">27</span>Adv. Director for Oversight</span><strong>Ass. Leitung / Curator</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">27</span>Adv. Director for Oversight</span><strong>Curator / Audit</strong></div>
                 </div>
 
                 <div class="rank-section-box">
@@ -385,8 +440,8 @@
 
                 <div class="rank-section-box">
                     <h3>Abteilungsleitung & Command</h3>
-                    <div class="rank-row"><span><span class="rank-id-num">22</span>Chief of Department</span><strong>Abteilungsleitung</strong></div>
-                    <div class="rank-row"><span><span class="rank-id-num">21</span>Dep. Chief of Department</span><strong>Abteilungsleitung</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">22</span>Chief of Department</span><strong>Abt. Leitung</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">21</span>Dep. Chief of Department</span><strong>Abt. Leitung</strong></div>
                     <div class="rank-row"><span><span class="rank-id-num">17</span>Commander</span><strong>Command</strong></div>
                     <div class="rank-row"><span><span class="rank-id-num">16</span>Federal Operations Agent</span><strong>Command</strong></div>
                     <div class="rank-row"><span><span class="rank-id-num">15</span>Principal Field Agent</span><strong>Command</strong></div>
@@ -396,11 +451,11 @@
                 </div>
 
                 <div class="rank-section-box">
-                    <h3>Spezial- & Agentenränge</h3>
-                    <div class="rank-row"><span><span class="rank-id-num">20</span>Special Agent</span><strong>Media</strong></div>
-                    <div class="rank-row"><span><span class="rank-id-num">19</span>Tactical Operator</span><strong>C.I.R.G. Rang</strong></div>
-                    <div class="rank-row"><span><span class="rank-id-num">18</span>Department Specialist</span><strong>Department Rang</strong></div>
-                    <div class="rank-row"><span><span class="rank-id-num">11</span>Junior Special Agent</span><strong>Mediabegleitung</strong></div>
+                    <h3>Spezial- & Agentenfeldränge</h3>
+                    <div class="rank-row"><span><span class="rank-id-num">20</span>Special Agent</span><strong>Media / PR</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">19</span>Tactical Operator</span><strong>C.I.R.G. Unit</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">18</span>Department Specialist</span><strong>Specialist</strong></div>
+                    <div class="rank-row"><span><span class="rank-id-num">11</span>Junior Special Agent</span><strong>Media Escort</strong></div>
                     <div class="rank-row"><span><span class="rank-id-num">10</span>Agent First Class</span><strong>Agent</strong></div>
                     <div class="rank-row"><span><span class="rank-id-num">09</span>Field Agent</span><strong>Agent</strong></div>
                     <div class="rank-row"><span><span class="rank-id-num">08</span>Agent</span><strong>Agent</strong></div>
@@ -410,8 +465,8 @@
         </section>
 
         <section id="motivation" class="section">
-            <div class="section-tag">08 / Motivation</div>
-            <h2 class="section-title">Warum ich Leader werden möchte</h2>
+            <div class="section-tag">INDEX // 08</div>
+            <h2 class="section-title">Intention & Führungsmotivation</h2>
             
             <p class="text-block">Ich bewerbe mich nicht aus Prestigegründen, sondern aus dem Anspruch heraus, das FIB strukturell und organisatorisch weiterzuentwickeln. In den vergangenen Monaten habe ich die Behörde aus unterschiedlichen Rollen erlebt und kenne sowohl operative Abläufe als auch interne Dynamiken. Dieses Gesamtbild ermöglicht es mir, Stärken auszubauen und Schwachstellen gezielt anzugehen.</p>
             
@@ -419,35 +474,35 @@
 
             <p class="text-block">Ich möchte ein FIB führen, das durch klare Strukturen, faire Leistungsbewertung und professionelle Außenwirkung überzeugt. Eine Behörde, die nicht von Einzelpersonen abhängt, sondern durch stabile Systeme getragen wird.</p>
 
-            <div class="text-highlight-box">
+            <div class="dossier-box">
                 <h4>Führungsverständnis</h4>
                 <p class="text-block" style="margin-bottom:0;">Die Leitung ist für mich kein Titel, sondern eine Aufgabe mit Tragweite. Wer an der Spitze steht, prägt Richtung, Kultur und Anspruch der gesamten Organisation. Dieser Verantwortung möchte ich mich stellen.</p>
             </div>
         </section>
 
         <section id="schlusswort" class="section">
-            <div class="section-tag">09 / Abschluss</div>
-            <h2 class="section-title">Schlusswort</h2>
+            <div class="section-tag">INDEX // 09</div>
+            <h2 class="section-title">Schlusswort / Validierung</h2>
             
             <p class="text-block">Das FIB hat enormes Potenzial. Mit klarer Führung und sauberen Strukturen kann diese Behörde wieder das Niveau erreichen, das sie verdient.</p>
             <p class="text-block">Ich habe lange im Staatsdienst gearbeitet, Verantwortung getragen und unterschiedliche Leitungsstile erlebt. Jetzt möchte ich selbst die Richtung vorgeben und Maßstäbe setzen. Mein Anspruch ist es, Entscheidungen konsequent und fair umzusetzen.</p>
             
-            <div class="text-highlight-box">
-                <p class="text-block" style="margin-bottom:0; font-weight:600; color:#fff;">Wenn mir das Vertrauen gegeben wird, führe ich das FIB ruhig, strukturiert und leistungsorientiert. Entscheidungen werden klar getroffen, Standards gelten für alle.</p>
+            <div class="dossier-box">
+                <p class="text-block" style="margin-bottom:0; font-weight:600; color:#fff; font-family:var(--code-font);">Wenn mir das Vertrauen gegeben wird, führe ich das FIB ruhig, strukturiert und leistungsorientiert. Entscheidungen werden klar getroffen, Standards gelten ausnahmslos für alle.</p>
             </div>
 
-            <p class="text-block" style="margin-top:40px; text-align:center; color: var(--text-muted);">Ich bedanke mich für die Chance, mich hier vorstellen zu dürfen, und wünsche allen Bearbeitern einen angenehmen Tag.</p>
+            <p class="text-block" style="margin-top:40px; text-align:center; color: var(--text-muted); font-family: var(--code-font);">[ENDE DER SUBMISSION // VIELEN DANK FÜR DIE AUSWERTUNG]</p>
         </section>
 
         <footer class="footer">
-            <img class="footer-logo" src="https://i.imgur.com/PDg8yT2.png" alt="FIB Logo Footer">
-            <div class="footer-quote">„Stärke zeigt sich nicht in Worten, sondern in Entscheidungen.“</div>
+            <img class="footer-logo" src="https://i.imgur.com/PDg8yT2.png" alt="FIB Web Emblem">
+            <div class="footer-quote">SUBMISSION PROTOCOL // DIR-17450 APPROVED</div>
             <div class="footer-credits">FEDERAL INVESTIGATION BUREAU · LEADERSHIP APPLICATION · REPUBLIK CODES 2026</div>
             
             <div class="signature-box">
                 <div class="signature-name">Eko Plaste</div>
-                <div class="signature-line">Eko Plaste | ID: 17450</div>
-                <div class="signature-role">Bewerber zum Director of Bureau</div>
+                <div class="signature-line">ID: 17450 // APPLICANT</div>
+                <div class="signature-line" style="font-size:10px; color:var(--accent-red);">STATUS: PENDING EVALUATION</div>
             </div>
         </footer>
     </div>
@@ -458,7 +513,7 @@
             overlay.style.opacity = '0';
             setTimeout(() => {
                 overlay.style.visibility = 'hidden';
-            }, 600);
+            }, 500);
         }
 
         function scrollToSection(sectionId) {
