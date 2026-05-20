@@ -250,6 +250,7 @@
             padding: 30px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.3);
             transition: all 0.3s ease;
+            cursor: pointer; /* Signalisiert Klickbarkeit */
         }
         .id-badge-card:hover {
             transform: translateY(-4px) rotate(0.5deg);
@@ -533,11 +534,123 @@
             color: #fff;
         }
 
+        /* INTERAKTIVES CYBER-MODAL (POP-UP) */
+        .custom-modal {
+            display: none; 
+            position: fixed; 
+            z-index: 100005; 
+            left: 0; top: 0; 
+            width: 100%; height: 100%; 
+            overflow: auto; 
+            background-color: rgba(6, 8, 11, 0.85);
+            backdrop-filter: blur(5px);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        .custom-modal-content {
+            background-color: var(--bg-document);
+            margin: 6% auto; 
+            padding: 35px; 
+            border: 2px solid var(--border-color);
+            border-top: 6px solid var(--red-alert);
+            width: 80%; 
+            max-width: 750px;
+            box-shadow: 0 0 30px rgba(255, 51, 68, 0.15);
+            position: relative;
+        }
+
+        .custom-close {
+            color: var(--text-dark);
+            position: absolute;
+            top: 15px; right: 20px;
+            font-size: 28px; font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+            font-family: var(--font-mono);
+        }
+        .custom-close:hover {
+            color: var(--red-alert);
+        }
+
+        .modal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .modal-section-title {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--red-alert);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 6px;
+            margin-bottom: 12px;
+        }
+
+        .modal-list {
+            list-style: none;
+            padding-left: 5px;
+        }
+        .modal-list li {
+            font-size: 14px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+            color: #cbd5e1;
+            position: relative;
+            padding-left: 18px;
+        }
+        .modal-list.strengths li::before {
+            content: "✓";
+            color: #00ffcc;
+            position: absolute; left: 0; top: 0;
+            font-weight: bold;
+        }
+        .modal-list.weaknesses li::before {
+            content: "✗";
+            color: var(--red-alert);
+            position: absolute; left: 0; top: 0;
+            font-weight: bold;
+        }
+
+        .modal-images-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 25px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+        .modal-img-box {
+            background: #06080b;
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-img-box img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%) contrast(115%) brightness(95%);
+            transition: all 0.3s;
+        }
+        .modal-img-box:hover img {
+            filter: grayscale(0%) contrast(100%);
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         @media (max-width: 1000px) {
             body { flex-direction: column; }
             .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 2px solid var(--border-color); padding: 25px; }
             .content-container { margin-left: 0; width: 100%; padding: 40px 20px; }
-            .id-badge-card, .struct-grid, .matrix-container { grid-template-columns: 1fr; }
+            .id-badge-card, .struct-grid, .matrix-container, .modal-grid { grid-template-columns: 1fr; }
             .struct-card[style] { grid-column: span 1 !important; }
             .struct-desc[style] { grid-template-columns: 1fr !important; }
         }
@@ -565,7 +678,7 @@
         
         <header class="dossier-header">
             <div class="dossier-classification">SECURITY LEVEL: RESTRICTED // APPLICANT RECORD</div>
-            <h1 class="dossier-title">FIB Director-Bewerbung</h1>
+            <h1 class="dossier-title">Direktions-Dossier</h1>
             <div class="dossier-sub">Eko Plaste // Dienstnummer #17450 // Jahr 2026</div>
         </header>
 
@@ -592,20 +705,23 @@
             <div class="section-tag">ARCHIV // INDEX_01</div>
             <h2 class="section-heading">Bewerber-Identifikation</h2>
             
-            <div class="id-badge-card">
+            <div class="id-badge-card" onclick="openModal()">
                 <div class="badge-photo-box">
-                    <img src="fib.jpg" alt="Eko Plaste">
+                    <img src="https://i.imgur.com/PDg8yT2.png" alt="Federal Crest">
                 </div>
                 <div class="badge-grid">
-                    <div class="badge-field"><div class="field-label">Name (OOC)</div><div class="field-value">Vincent</div></div>
-                    <div class="badge-field"><div class="field-label">Alterr</div><div class="field-value">28 Jahre</div></div>
-                    <div class="badge-field"><div class="field-label">Name(IC)</div><div class="field-value">Eko Plaste</div></div>
-                    <div class="badge-field"><div class="field-label">ID</div><div class="field-value">#17450</div></div>
-                    <div class="badge-field"><div class="field-label">KDiscord</div><div class="field-value">Vinz1871</div></div>
-                    <div class="badge-field"><div class="field-label">Visum</div><div class="field-value">Visum 66</div></div>
-                    <div class="badge-field" style="grid-column: span 2;"><div class="field-label">Onlinezeit</div><div class="field-value">5-10h</div></div>
+                    <div class="badge-field"><div class="field-label">Ziviler Name (OOC)</div><div class="field-value">Vincent</div></div>
+                    <div class="badge-field"><div class="field-label">Lebensalter</div><div class="field-value">28 Jahre</div></div>
+                    <div class="badge-field"><div class="field-label">Dienstidentität (IC)</div><div class="field-value">Eko Plaste</div></div>
+                    <div class="badge-field"><div class="field-label">Bürger-ID</div><div class="field-value">#17450</div></div>
+                    <div class="badge-field"><div class="field-label">Kryptonym / Discord</div><div class="field-value">Vinz1871</div></div>
+                    <div class="badge-field"><div class="field-label">Aufenthaltsrecht</div><div class="field-value">Visum 64</div></div>
+                    <div class="badge-field" style="grid-column: span 2;"><div class="field-label">Wöchentliches Dienst-Kontingent</div><div class="field-value">Zwischen 35 und 70 Einsatzstunden (5-10 Std. täglich)</div></div>
                 </div>
             </div>
+            <p style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dark); margin-top: 10px; text-align: center; letter-spacing: 0.5px;">
+                [Hinweis: Klicken Sie auf die ID-Karte, um Stärken, Schwächen & Zusatzakten aufzurufen]
+            </p>
             <button class="action-btn next-page-btn" onclick="goToNextPage()">Nächste Seite: 02 // Leitgedanke →</button>
         </section>
 
@@ -629,9 +745,7 @@
                 <p class="text-paragraph">Mein operatives Profil wurde durch grundverschiedene Behördenstrukturen und Führungsphilosophien geschärft. Während meiner Zeit als <strong>SWAT Leader unter Sophia Hagedorn</strong> lag der Fokus auf der unmittelbaren Stabilisierung einer Spezialeinheit unter massiven internen und externen Belastungsproben. Hier war es essenziell, klare Befehlsketten zu etablieren, Grauzonen zu eliminieren und die operative Schlagkraft der Truppe lückenlos zu gewährleisten.</p>
                 <p class="text-paragraph">Unter der Leitung von <strong>Elli Brandenburger</strong> absolvierte ich eine über sechsmonatige Dienstzeit auf administrativer Ebene (28er) – <strong>absolut frei von Organisations-Verwarnungen</strong>. Solch eine fehlerfreie Konstanz in einer hochfrequentierten Großbehörde resultiert aus bedingungsloser Selbstdisziplin, permanenter Eigenkontrolle und einem fehlerfreien Systemverständnis.</p>
                 <p class="text-paragraph">Unter <strong>Chief of Police Panam Veto</strong> erweiterte ich mein Spektrum als 28er in einem veränderten philosophischen Ansatz. Dies bewies meine Fähigkeit, mich schnell in neue Führungsstrukturen zu integrieren, operative Abläufe pragmatisch zu stützen und trotz struktureller Wechsel die administrative Stabilität zu wahren.</p>
-                <p class="text-paragraph">Darauf folgend leitete ich über rund fünf Monate die <strong>CIRG innerhalb des FIB unter Steve Cock</strong>. Meine Kernaufgabe umfasste hier die strategische Koordination komplexer Ermittlungsverfahren, detaillierte Personalbewertung und die Implementierung neuer Qualitätsstandards. Ermittlungsakten wurden unter meiner Aufsicht nicht nur verwaltet, sondern gerichts- und systemfest aufgebaut.</p>
-                <p class="text-paragraph">Zuletzt war ich über einen Zeitraum von drei Monaten als <strong>28. Assistant Director of FIB unter der Leitung von Leyla Ballerina</strong> tätig. In dieser strategischen Spitzenfunktion lag der Fokus auf der behördenübergreifenden Gesamtausrichtung, dem Krisenmanagement auf oberster Direktionsebene sowie der finalen Entscheidungsverantwortung in hochkomplexen, sensiblen Lagen.</p>
-                <p class="text-paragraph">Durch diesen Werdegang kenne ich sowohl die Perspektive des operativen Leiters an der Front als auch die des strategisch eingebundenen Bereichsverantwortlichen auf Direktionsebene. Führung bedeutet für mich, eine Organisation berechenbar, belastbar und handlungsfähig zu halten unabhängig von internen oder externen Spannungen. Ich bin ein Mensch, der gerne und entschlossen führt, sich jedoch auch nicht scheut, selbst Anweisungen anzunehmen und präzise umzusetzen.</p>
+                <p class="text-paragraph">Zuletzt leitete ich über rund fünf Monate die <strong>CIRG innerhalb des FIB unter Steve Cock</strong>. Meine Kernaufgabe umfasste hier die strategische Koordination komplexer Ermittlungsverfahren, detaillierte Personalbewertung und die Implementierung neuer Qualitätsstandards. Ermittlungsakten wurden unter meiner Aufsicht nicht nur verwaltet, sondern gerichts- und systemfest aufgebaut.</p>
                 <p class="text-paragraph" style="font-style: italic; color: var(--text-dark);">Führung bedeutet für mich, eine Organisation berechenbar, belastbar und handlungsfähig zu halten, unabhängig von internen oder externen Spannungen. Ich bin ein Mensch, der gerne führt, sich jedoch auch nicht scheut, selbst Anweisungen anzunehmen und umzusetzen.</p>
             </div>
             <button class="action-btn next-page-btn" onclick="goToNextPage()">Nächste Seite: 04 // Dienstakte →</button>
@@ -670,14 +784,9 @@
                         <td>Steve Cock (F.I.B.)</td>
                         <td>5 Monate</td>
                     </tr>
-                    <tr>
-                        <td><strong>Rang 28 // Assistent Director of FIB</strong> (Direction, National Security Council)</td>
-                        <td>Leyla Ballerina (F.I.B.)</td>
-                        <td>3 Monate</td>
-                    </tr>
                     <tr style="background: rgba(255, 51, 68, 0.03); font-weight: bold;">
                         <td colspan="2">Gesamtkontingent im aktiven Staatsdienst:</td>
-                        <td style="color: var(--red-alert);">1 Jahr und 8 Monate</td>
+                        <td style="color: var(--red-alert);">1 Jahr und 5 Monate</td>
                     </tr>
                 </tbody>
             </table>
@@ -711,23 +820,18 @@
             <h2 class="section-heading">Strukturelle Reformen</h2>
             
             <div class="document-sheet">
-                <strong style="color:var(--red-alert); display:block; margin-bottom:10px; font-family:var(--font-mono);">1. STOPP VON MICROMANAGEMENT</strong>
-                <p class="text-paragraph"></p> Die Direktion hat die Aufgabe, strategische Leitlinien zu setzen und Ergebnisse zu kontrollieren. Operative Detailarbeit gehört in die Verantwortung der jeweiligen Abteilungen. In der Vergangenheit wurde auf höchster Ebene häufig zu tief in laufende Prozesse eingegriffen. Das schwächt Eigenverantwortung und hemmt die Entwicklung starker Führungspersönlichkeiten innerhalb der Behörde.
-                                               Unter meiner Leitung erhalten Abteilungsleiter und ihre Stellvertreter klar definierte Entscheidungsräume. Wer eine Abteilung führt, verantwortet deren Arbeitsweise, Qualität und interne Ordnung eigenständig. Die Direktion wird tätig, wenn grundlegende Zielsetzungen oder Standards nicht erreicht werden, nicht im laufenden Tagesgeschäft.
+                <strong style="color:var(--red-alert); display:block; margin-bottom:10px; font-family:var(--font-mono);">1. DEZENTRALISIERUNG / STOPP VON MICROMANAGEMENT</strong>
+                <p class="text-paragraph">Die Direktion zieht sich aus dem operativen Alltagsgeschäft zurück. Verantwortung und Entscheidungskompetenzen werden vollständig an die jeweiligen Abteilungsleitungen übergeben, um Eigeninitiative zu stärken. Unter meiner Führung agieren die Abteilungsleiter eigenverantwortlich innerhalb klar abgesteckter Befugnisse.</p>
             </div>
 
             <div class="document-sheet">
-                <strong style="color:var(--red-alert); display:block; margin-bottom:10px; font-family:var(--font-mono);">2. Elitäre Organisation</strong>
-                <p class="text-paragraph">Das FIB soll wieder als exklusive Bundesbehörde wahrgenommen werden. Eine Aufnahme darf kein Standardverfahren sein. Die Anforderungen an Bewerber werden angehoben, sowohl fachlich als auch charakterlich. Aktivität allein reicht nicht aus. Erwartet werden Belastbarkeit, Integrität und nachweisbare Leistungsfähigkeit.
-                                          Interne Ausbildungs- und Prüfungsphasen werden konsequent umgesetzt. Wer das FIB repräsentiert, steht für Professionalität. Qualität vor Quantität ist dabei oberstes Prinzip. Eine kleinere, leistungsstarke Organisation ist langfristig effektiver als eine große, unstrukturierte.</p>
+                <strong style="color:var(--red-alert); display:block; margin-bottom:10px; font-family:var(--font-mono);">2. FOKUS ON EXKLUSIVITÄT STATT MASSENABFERTIGUNG</strong>
+                <p class="text-paragraph">Die Aufnahmekriterien werden drastisch verschärft. Das FIB agiert wieder als elitäre Bundesbehörde, in der Qualität und charakterliche Eignung vor reiner Personalstärke stehen. Qualität steht über Quantität.</p>
             </div>
 
             <div class="document-sheet">
-                <strong style="color:var(--red-alert); display:block; margin-bottom:10px; font-family:var(--font-mono);">3. Meritokratische Prinzipien</strong>
-                <p class="text-paragraph">Leistung muss der einzige Maßstab für Aufstieg und Einfluss sein. Beförderungen, Sonderrechte und Verantwortungsbereiche orientieren sich an messbaren Ergebnissen, Disziplin und Verlässlichkeit. Persönliche Nähe zur Führungsebene darf weder Vorteile noch Schutz bieten.
-Es darf nicht vorkommen, dass engagierte Mitglieder für geringfügige Fehler öffentlich kritisiert werden, während andere aufgrund persönlicher Beziehungen unbehelligt bleiben. Einheitliche Standards sind die Grundlage für Vertrauen innerhalb der Organisation.
-Ein FIB, das konsequent nach Leistung bewertet, schafft Motivation, Fairness und bietet bisher unentdeckten Mitgliedern eine echte Chance, ihr volles Potenzial unter Beweis zu stellen.
-</p>
+                <strong style="color:var(--red-alert); display:block; margin-bottom:10px; font-family:var(--font-mono);">3. MERITOKRATISCHES SYSTEM (STRIKTE LEISTUNGSBEWERTUNG)</strong>
+                <p class="text-paragraph">Beförderungen und Zuteilungen basieren ausschließlich auf messbaren Resultaten. Persönliche Seilschaften gewähren weder Schutz vor Sanktionen noch unverdiente Aufstiege.</p>
             </div>
 
             <div class="document-sheet" style="border-top: 3px solid var(--red-alert);">
@@ -823,14 +927,14 @@ Ein FIB, das konsequent nach Leistung bewertet, schafft Motivation, Fairness und
             <div class="matrix-container">
                 <div class="matrix-box">
                     <h4>Bureau-Direktion</h4>
-                    <div class="matrix-row"><span><span class="matrix-num">30</span>Director of FIB</span><strong>Leader</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">29</span>Deputy Director of FIB</span><strong>Vize Leader</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">28</span>Assistant Director</span><strong>Abteilungs Leader</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">27</span>Adv. Director for Oversight</span><strong>Abteilungs Curator</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">30</span>Director of FIB</span><strong>Gesamtleitung</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">29</span>Deputy Director of FIB</span><strong>Stellvertretung</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">28</span>Assistant Director</span><strong>Administration</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">27</span>Adv. Director for Oversight</span><strong>Revision / Kuration</strong></div>
                 </div>
                 <div class="matrix-box">
                     <h4>High Command</h4>
-                    <div class="matrix-row"><span><span class="matrix-num">26</span>Inspector</span><strong>HC-Lead</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">26</span>Inspector</span><strong>Aufsicht</strong></div>
                     <div class="matrix-row"><span><span class="matrix-num">25</span>Supervisory Head Agent</span><strong>HC-Management</strong></div>
                     <div class="matrix-row"><span><span class="matrix-num">24</span>Supervisory Special Agent</span><strong>HC-Management</strong></div>
                     <div class="matrix-row"><span><span class="matrix-num">23</span>Special Agent in Charge</span><strong>Einsatzkoordination</strong></div>
@@ -848,13 +952,13 @@ Ein FIB, das konsequent nach Leistung bewertet, schafft Motivation, Fairness und
                 </div>
                 <div class="matrix-box">
                     <h4>Agenten- & Spezialränge</h4>
-                    <div class="matrix-row"><span><span class="matrix-num">20</span>Special Agent</span><strong>Media</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">20</span>Special Agent</span><strong>Media / PR</strong></div>
                     <div class="matrix-row"><span><span class="matrix-num">19</span>Tactical Operator</span><strong>CIRG-Einsatzkraft</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">18</span>Department Specialist</span><strong>Abteilungs Rang</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">18</span>Department Specialist</span><strong>Fachexperte</strong></div>
                     <div class="matrix-row"><span><span class="matrix-num">11</span>Junior Special Agent</span><strong>Medienbegleitung</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">10</span>Agent First Class</span><strong>AComman</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">09</span>Field Agent</span><strong>Comman</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">08</span>Agent</span><strong>Command</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">10</span>Agent First Class</span><strong>Außendienst</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">09</span>Field Agent</span><strong>Außendienst</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">08</span>Agent</span><strong>Außendienst</strong></div>
                     <div class="matrix-row"><span><span class="matrix-num">07</span>New Agent Trainee</span><strong>Anwärter</strong></div>
                 </div>
             </div>
@@ -883,6 +987,45 @@ Ein FIB, das konsequent nach Leistung bewertet, schafft Motivation, Fairness und
         </footer>
 
     </main>
+
+    <div id="badgeModal" class="custom-modal">
+        <div class="custom-modal-content">
+            <span class="custom-close" onclick="closeModal()">&times;</span>
+            <div class="dossier-classification" style="margin-bottom: 10px;">ADDENDUM // AGENT_EVALUATION</div>
+            <h3 class="sig-font" style="font-size: 24px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; text-transform: uppercase;">Eko Plaste // Profile_Details</h3>
+            
+            <div class="modal-grid">
+                <div>
+                    <div class="modal-section-title">✓ Stärken (Strengths)</div>
+                    <ul class="modal-list strengths">
+                        <li><strong>Langjährige Einsatzerfahrung:</strong> Über 1 Jahr und 5 Monate ununterbrochene Aktivität in komplexen Exekutivstrukturen.</li>
+                        <li><strong>Führungs- & Krisenkompetenz:</strong> Erfolgreiche Leitung von Spezialeinheiten (SWAT, CIRG) in stressintensiven Situationen.</li>
+                        <li><strong>Administrative Zuverlässigkeit:</strong> Nachweisbar fehlerfreie Dienstzeiten auf höchster administrativer Ebene (Rang 28).</li>
+                        <li><strong>Juristische Präzision:</strong> Ausnahmslos gerichts- und systemfeste Ermittlungsaktenführung.</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <div class="modal-section-title">✗ Schwächen (Weaknesses)</div>
+                    <ul class="modal-list weaknesses">
+                        <li><strong>Kompromisslose Erwartungshaltung:</strong> Extrem hoher Anspruch an die Disziplin und Eigeninitiative von Untergebenen.</li>
+                        <li><strong>Bürokratischer Perfektionismus:</strong> Neigt dazu, Dokumentationsstandards extrem penibel zu prüfen, was zeitaufwendig sein kann.</li>
+                        <li><strong>Direkte Kommunikation:</strong> Spricht strukturelle Missstände und Defizite in der Führungsebene direkt und ungeschönt an.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="modal-section-title" style="margin-top: 25px;">📷 Dienstakten-Fotodokumentation // ATTACHMENTS</div>
+            <div class="modal-images-container">
+                <div class="modal-img-box">
+                    <img src="HIER_LINK_ZUR_BILD_3.png" alt="Einsatzdokumentation Alpha">
+                </div>
+                <div class="modal-img-box">
+                    <img src="HIER_LINK_ZUR_BILD_4.png" alt="Einsatzdokumentation Beta">
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         const pageOrder = [
@@ -920,6 +1063,23 @@ Ein FIB, das konsequent nach Leistung bewertet, schafft Motivation, Fairness und
             if (currentIndex !== -1 && currentIndex < pageOrder.length - 1) {
                 const nextId = pageOrder[currentIndex + 1];
                 showPage(nextId, null);
+            }
+        }
+
+        // ================= POP-UP MODAL LOGIK =================
+        function openModal() {
+            document.getElementById('badgeModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('badgeModal').style.display = 'none';
+        }
+
+        // Schließen, wenn man außerhalb des Fensters klickt
+        window.onclick = function(event) {
+            const modal = document.getElementById('badgeModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
             }
         }
 
