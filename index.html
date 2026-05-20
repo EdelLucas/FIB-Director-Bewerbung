@@ -25,6 +25,7 @@
             font-family: 'Segoe UI', -apple-system, sans-serif;
         }
 
+        /* KOPIERSCHUTZ: Textauswahl überall auf der Webseite verbieten */
         body {
             background-color: var(--bg-main);
             color: var(--text-white);
@@ -32,6 +33,9 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10+ */
+            user-select: none; /* Standard (Chrome, Firefox, etc.) */
         }
 
         /* SCREEN SCANLINE EFFECT */
@@ -170,13 +174,13 @@
 
         /* SEITEN-STEUERUNG (Einzelseiten-Logik) */
         .section-block {
-            display: none; /* Versteckt alle Seiten standardmäßig */
+            display: none;
             position: relative;
             animation: fadeIn 0.4s ease forwards;
         }
 
         .section-block.active {
-            display: block; /* Zeigt nur die aktive Seite */
+            display: block;
         }
 
         @keyframes fadeIn {
@@ -211,7 +215,7 @@
             background: linear-gradient(90deg, var(--border-color), transparent);
         }
 
-        /* ACTION BUTTON */
+        /* ACTION BUTTON (Z.B. FÜR "NÄCHSTE SEITE") */
         .action-btn {
             background: transparent;
             border: 1px solid var(--red-alert);
@@ -223,10 +227,11 @@
             text-transform: uppercase;
             letter-spacing: 1.5px;
             transition: all 0.4s ease;
-            margin-top: 25px;
+            margin-top: 35px;
             display: inline-block;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 0 5px rgba(255, 51, 68, 0.1);
         }
         .action-btn:hover {
             background: var(--red-alert);
@@ -502,7 +507,7 @@
 
         /* SIGNATURE AREA */
         .closure-box {
-            margin-top: auto; /* Schiebt das Schlusswort immer ganz nach unten */
+            margin-top: 50px;
             padding-top: 40px;
             border-top: 1px dashed var(--border-color);
             display: flex;
@@ -544,16 +549,16 @@
     <nav class="sidebar">
         <div class="sidebar-header">FIB // TERMINAL_V1.7</div>
         <ul class="sidebar-menu">
-            <li><button class="menu-btn active" onclick="showPage('willkommen', this)">00 // Einleitung</button></li>
-            <li><button class="menu-btn" onclick="showPage('biometrie', this)">01 // Personalien</button></li>
-            <li><button class="menu-btn" onclick="showPage('motivation', this)">02 // Leitgedanke</button></li>
-            <li><button class="menu-btn" onclick="showPage('profil', this)">03 // Qualifikation</button></li>
-            <li><button class="menu-btn" onclick="showPage('laufbahn', this)">04 // Dienstakte</button></li>
-            <li><button class="menu-btn" onclick="showPage('kriterien', this)">05 // Voraussetzungen</button></li>
-            <li><button class="menu-btn" onclick="showPage('optimierung', this)">06 // Reformen</button></li>
-            <li><button class="menu-btn" onclick="showPage('struktur', this)">07 // Organigramm</button></li>
-            <li><button class="menu-btn" onclick="showPage('hierarchie', this)">08 // Rangordnung</button></li>
-            <li><button class="menu-btn" onclick="showPage('schlusswort', this)">09 // Schlusswort</button></li>
+            <li><button class="menu-btn active" data-page="willkommen" onclick="showPage('willkommen', this)">00 // Einleitung</button></li>
+            <li><button class="menu-btn" data-page="biometrie" onclick="showPage('biometrie', this)">01 // Personalien</button></li>
+            <li><button class="menu-btn" data-page="motivation" onclick="showPage('motivation', this)">02 // Leitgedanke</button></li>
+            <li><button class="menu-btn" data-page="profil" onclick="showPage('profil', this)">03 // Qualifikation</button></li>
+            <li><button class="menu-btn" data-page="laufbahn" onclick="showPage('laufbahn', this)">04 // Dienstakte</button></li>
+            <li><button class="menu-btn" data-page="kriterien" onclick="showPage('kriterien', this)">05 // Voraussetzungen</button></li>
+            <li><button class="menu-btn" data-page="optimierung" onclick="showPage('optimierung', this)">06 // Reformen</button></li>
+            <li><button class="menu-btn" data-page="struktur" onclick="showPage('struktur', this)">07 // Organigramm</button></li>
+            <li><button class="menu-btn" data-page="hierarchie" onclick="showPage('hierarchie', this)">08 // Rangordnung</button></li>
+            <li><button class="menu-btn" data-page="schlusswort" onclick="showPage('schlusswort', this)">09 // Schlusswort</button></li>
         </ul>
     </nav>
 
@@ -580,9 +585,8 @@
                 <p class="text-paragraph">
                     Auf den folgenden Seiten präsentiere ich Ihnen ein paar essentielle Details über mich als Person, meinen bisherigen Werdegang im Staatsdienst und natürlich meine strategischen Pläne dafür, was mit dem FIB passieren wird, um die Behörde auf ein neues Level zu heben.
                 </p>
-                
-                <button class="action-btn" onclick="document.querySelector('[onclick*=\'biometrie\']').click()">Dossier öffnen & prüfen →</button>
             </div>
+            <button class="action-btn next-page-btn" onclick="goToNextPage()">Nächste Seite: 01 // Personalien →</button>
         </section>
 
         <section id="biometrie" class="section-block">
@@ -603,6 +607,7 @@
                     <div class="badge-field" style="grid-column: span 2;"><div class="field-label">Wöchentliches Dienst-Kontingent</div><div class="field-value">Zwischen 35 und 70 Einsatzstunden (5-10 Std. täglich)</div></div>
                 </div>
             </div>
+            <button class="action-btn next-page-btn" onclick="goToNextPage()">Nächste Seite: 02 // Leitgedanke →</button>
         </section>
 
         <section id="motivation" class="section-block">
@@ -610,10 +615,11 @@
             <h2 class="section-heading">Strategische Ausrichtung</h2>
             
             <div class="document-sheet">
-                <p class="text-paragraph">Die strategiche Führung des Federal Investigation Bureau erfordert eine fundamentale Neuausrichtung weitab von rein repräsentativen Ansprüchen. Meine Bewerbung basiert auf der klaren Notwendigkeit, strukturelle Schwachstellen und administrative Defizite innerhalb der Bundesbehörde systematisch zurückzubauen.</p>
+                <p class="text-paragraph">Die strategische Führung des Federal Investigation Bureau erfordert eine fundamentale Neuausrichtung weitab von rein repräsentativen Ansprüchen. Meine Bewerbung basiert auf der klaren Notwendigkeit, strukturelle Schwachstellen und administrative Defizite innerhalb der Bundesbehörde systematisch zurückzubauen.</p>
                 <p class="text-paragraph">Durch den tiefen Einblick in die internen Dynamiken der vergangenen Monate besitze ich ein präzises Bild davon, wo operative Prozesse blockiert werden. Ein Einzug in die Direktion bedeutet für mich die Verpflichtung, unnachgiebige Qualitätsstandards zu fixieren und diese auf jeder Hierarchieebene ausnahmslos durchzusetzen.</p>
                 <p class="text-paragraph" style="font-weight: 600; color: #fff;">Die Direktion ist kein repräsentativer Titel, sondern ein strategisches Werkzeug. Die Person an der Spitze bestimmt die Belastbarkeit, die Disziplin und das Ansehen der gesamten Institution. Ich bin bereit, diese Verantwortung vollumfänglich zu tragen.</p>
             </div>
+            <button class="action-btn next-page-btn" onclick="goToNextPage()">Nächste Seite: 03 // Qualifikation →</button>
         </section>
 
         <section id="profil" class="section-block">
@@ -621,12 +627,13 @@
             <h2 class="section-heading">Dienstliche Qualifikationsmatrix</h2>
             
             <div class="document-sheet">
-                <p class="text-paragraph">Mein operatives Profil wurde durch grundverschiedene Behördenstrukturen und Führungsphilosophien geschärft. Während meiner Zeit als <strong>SWAT Leader unter Sophia Hagedorn</strong> lag der Fokus auf der unmittelbaren Stabilisierung einer Spezialeinheit unter massiven internen und externen Belastungproben. Hier war es essenziell, klare Befehlsketten zu etablieren, Grauzonen zu eliminieren und die operative Schlagkraft der Truppe lückenlos zu gewährleisten.</p>
+                <p class="text-paragraph">Mein operatives Profil wurde durch grundverschiedene Behördenstrukturen und Führungsphilosophien geschärft. Während meiner Zeit als <strong>SWAT Leader unter Sophia Hagedorn</strong> lag der Fokus auf der unmittelbaren Stabilisierung einer Spezialeinheit unter massiven internen und externen Belastungsproben. Hier war es essenziell, klare Befehlsketten zu etablieren, Grauzonen zu eliminieren und die operative Schlagkraft der Truppe lückenlos zu gewährleisten.</p>
                 <p class="text-paragraph">Unter der Leitung von <strong>Elli Brandenburger</strong> absolvierte ich eine über sechsmonatige Dienstzeit auf administrativer Ebene (28er) – <strong>absolut frei von Organisations-Verwarnungen</strong>. Solch eine fehlerfreie Konstanz in einer hochfrequentierten Großbehörde resultiert aus bedingungsloser Selbstdisziplin, permanenter Eigenkontrolle und einem fehlerfreien Systemverständnis.</p>
-                <p class="text-paragraph">Unter <strong>Chief of Police Panam Veto</strong> erweiterte ich mein Spektrum als 28er in einem veränderten philosophischen Ansatz. Dies bewies meine Fähigkeit, mich schnell in neue Führungsstrukturen zu integrieren, operative Abläufe pragmatisch zu stützen und trotz struktureller Wechsel die administrative Stabilität zu wahren.</p>
+                <p class="text-paragraph">Unter <strong>Chief of Police Panam Veto</strong> erweiterer ich mein Spektrum als 28er in einem veränderten philosophischen Ansatz. Dies bewies meine Fähigkeit, mich schnell in neue Führungsstrukturen zu integrieren, operative Abläufe pragmatisch zu stützen und trotz struktureller Wechsel die administrative Stabilität zu wahren.</p>
                 <p class="text-paragraph">Zuletzt leitete ich über rund fünf Monate die <strong>CIRG innerhalb des FIB unter Steve Cock</strong>. Meine Kernaufgabe umfasste hier die strategische Koordination komplexer Ermittlungsverfahren, detaillierte Personalbewertung und die Implementierung neuer Qualitätsstandards. Ermittlungsakten wurden unter meiner Aufsicht nicht nur verwaltet, sondern gerichts- und systemfest aufgebaut.</p>
                 <p class="text-paragraph" style="font-style: italic; color: var(--text-dark);">Führung bedeutet für mich, eine Organisation berechenbar, belastbar und handlungsfähig zu halten, unabhängig von internen oder externen Spannungen. Ich bin ein Mensch, der gerne führt, sich jedoch auch nicht scheut, selbst Anweisungen anzunehmen und umzusetzen.</p>
             </div>
+            <button class="action-btn next-page-btn" onclick="goToNextPage()">Nächste Seite: 04 // Dienstakte →</button>
         </section>
 
         <section id="laufbahn" class="section-block">
@@ -668,6 +675,7 @@
                     </tr>
                 </tbody>
             </table>
+            <button class="action-btn next-page-btn" onclick="goToNextPage()">Nächste Seite: 05 // Voraussetzungen →</button>
         </section>
 
         <section id="kriterien" class="section-block">
@@ -680,7 +688,7 @@
                 <p class="text-paragraph"><strong>Analytisches Selektionsverfahren:</strong> Der Rekrutierungsprozess wird verschärft und simuliert reale, hochkomplexe Szenarien der Bureau-Arbeit. Bewerber müssen unter Stress rechtssicher, präzise und taktisch fehlerfrei agieren.</p>
             </div>
 
-            <ul class="crit-list">
+            <ul class="crit-list" style="margin-bottom: 20px;">
                 <li>Mindestens 90 Tage lückenloser Dienst in einer Justiz-/Exekutivbehörde</li>
                 <li>Mindest-Visumsstufe 20 zwingend erforderlich</li>
                 <li>Erweiterte Einsatzausrüstung (Inklusive Rucksack Stufe 3)</li>
@@ -689,6 +697,7 @@
                 <li>Nachweisbar 30 Tage frei von FIBCO-Maßnahmen und Eintragungen</li>
                 <li>Absolute Textsicherheit und fundiertes Fachwissen im geltenden Recht der Republik</li>
             </ul>
+            <button class="action-btn next-page-btn" onclick="goToNextPage()">Nächste Seite: 06 // Reformen →</button>
         </section>
 
         <section id="optimierung" class="section-block">
@@ -709,11 +718,12 @@
                 <strong style="color:var(--red-alert); display:block; margin-bottom:10px; font-family:var(--font-mono);">3. MERITOKRATISCHES SYSTEM (STRIKTE LEISTUNGSBEWERTUNG)</strong>
                 <p class="text-paragraph">Beförderungen und Zuteilungen basieren ausschließlich auf messbaren Resultaten. Persönliche Seilschaften gewähren weder Schutz vor Sanktionen noch unverdiente Aufstiege. Es wird nicht toleriert, dass produktive Mitarbeiter wegen Bagatellen reglementiert werden, während andere durch persönliche Kontakte geschützt bleiben.</p>
             </div>
+            <button class="action-btn next-page-btn" onclick="goToNextPage()">Nächste Seite: 07 // Organigramm →</button>
         </section>
 
         <section id="struktur" class="section-block">
             <div class="section-tag">ARCHIV // INDEX_07</div>
-            <h2 class="section-heading">Das neue Abteilungsorganigramm</h2>
+            <h2 class="section-heading">Das neue Abteilungorganigramm</h2>
             
             <div class="struct-grid">
                 <div class="struct-card">
@@ -775,6 +785,7 @@
                     </ul>
                 </div>
             </div>
+            <button class="action-btn next-page-btn" onclick="goToNextPage()">Nächste Seite: 08 // Rangordnung →</button>
         </section>
 
         <section id="hierarchie" class="section-block">
@@ -819,6 +830,7 @@
                     <div class="matrix-row"><span><span class="matrix-num">07</span>New Agent Trainee</span><strong>Anwärter</strong></div>
                 </div>
             </div>
+            <button class="action-btn next-page-btn" onclick="goToNextPage()">Nächste Seite: 09 // Schlusswort →</button>
         </section>
 
         <section id="schlusswort" class="section-block">
@@ -842,28 +854,88 @@
     </main>
 
     <script>
+        // Array aller Seiten-IDs in der korrekten Reihenfolge
+        const pageOrder = [
+            'willkommen', 'biometrie', 'motivation', 'profil', 
+            'laufbahn', 'kriterien', 'optimierung', 'struktur', 
+            'hierarchie', 'schlusswort'
+        ];
+
         function showPage(pageId, buttonElement) {
             // 1. Alle Inhalts-Seiten verstecken
             const pages = document.querySelectorAll('.section-block');
-            pages.forEach(page => {
-                page.classList.remove('active');
-            });
+            pages.forEach(page => page.classList.remove('active'));
 
             // 2. Alle Menü-Buttons deaktivieren
             const buttons = document.querySelectorAll('.menu-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('active');
-            });
+            buttons.forEach(btn => btn.classList.remove('active'));
 
-            // 3. Gewählte Seite anzeigen
+            // 3. Gewählte Seite & Button aktivieren
             document.getElementById(pageId).classList.add('active');
-
-            // 4. Gewählten Button visuell aktivieren
-            buttonElement.classList.add('active');
             
-            // 5. Automatisch nach oben scrollen falls nötig
+            // Falls der Button direkt übergeben wurde (aus der Sidebar)
+            if(buttonElement) {
+                buttonElement.classList.add('active');
+            } else {
+                // Falls über den "Nächste Seite"-Button geschaltet wurde, den passenden Sidebar-Button suchen
+                const activeSidebarBtn = document.querySelector(`.menu-btn[data-page="${pageId}"]`);
+                if(activeSidebarBtn) activeSidebarBtn.classList.add('active');
+            }
+
+            // 4. Nach dem Seitenwechsel nach ganz oben scrollen
             window.scrollTo(0, 0);
         }
+
+        function goToNextPage() {
+            // Findet heraus, welche Seite aktuell offen ist
+            const currentActivePage = document.querySelector('.section-block.active');
+            if (!currentActivePage) return;
+            
+            const currentId = currentActivePage.id;
+            const currentIndex = pageOrder.indexOf(currentId);
+            
+            // Wenn es eine nächste Seite gibt, dorthin umschalten
+            if (currentIndex !== -1 && currentIndex < pageOrder.length - 1) {
+                const nextId = pageOrder[currentIndex + 1];
+                showPage(nextId, null);
+            }
+        }
+
+        // ================= KOPIERSCHUTZ LOGIK =================
+        
+        // 1. Rechtsklick komplett sperren
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // 2. Tastatur-Shortcuts abfangen (Strg+C, F12, Strg+U, Strg+Shift+I)
+        document.addEventListener('keydown', function(e) {
+            // Blockiert F12
+            if (e.keyCode === 123) {
+                e.preventDefault();
+                return false;
+            }
+            // Blockiert Strg+Shift+I (Entwicklertools)
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+                e.preventDefault();
+                return false;
+            }
+            // Blockiert Strg+U (Quellcode anzeigen)
+            if (e.ctrlKey && e.keyCode === 85) {
+                e.preventDefault();
+                return false;
+            }
+            // Blockiert Strg+C (Kopieren)
+            if (e.ctrlKey && e.keyCode === 67) {
+                e.preventDefault();
+                return false;
+            }
+            // Blockiert Strg+S (Speichern)
+            if (e.ctrlKey && e.keyCode === 83) {
+                e.preventDefault();
+                return false;
+            }
+        });
     </script>
 
 </body>
