@@ -25,7 +25,6 @@
             font-family: 'Segoe UI', -apple-system, sans-serif;
         }
 
-        /* KOPIERSCHUTZ: Textauswahl überall auf der Webseite verbieten */
         body {
             background-color: var(--bg-main);
             color: var(--text-white);
@@ -33,9 +32,9 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
-            -webkit-user-select: none; /* Safari */
-            -ms-user-select: none; /* IE 10+ */
-            user-select: none; /* Standard (Chrome, Firefox, etc.) */
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         /* SCREEN SCANLINE EFFECT */
@@ -63,6 +62,27 @@
             transform: rotate(-12deg);
             pointer-events: none;
             z-index: 1;
+        }
+
+        /* NOTIFICATION BOX (Kopierschutz-Warnung) */
+        #security-alert {
+            position: fixed;
+            top: 30px;
+            right: -350px;
+            background: #1a080c;
+            border: 2px solid var(--red-alert);
+            border-left: 6px solid var(--red-alert);
+            color: #fff;
+            padding: 15px 20px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 1px;
+            z-index: 100000;
+            box-shadow: 0 0 20px rgba(255, 51, 68, 0.3);
+            transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #security-alert.show {
+            right: 30px;
         }
 
         /* LEFT SIDEBAR NAVIGATION */
@@ -172,7 +192,7 @@
             letter-spacing: 1px;
         }
 
-        /* SEITEN-STEUERUNG (Einzelseiten-Logik) */
+        /* SEITEN-STEUERUNG */
         .section-block {
             display: none;
             position: relative;
@@ -215,7 +235,7 @@
             background: linear-gradient(90deg, var(--border-color), transparent);
         }
 
-        /* ACTION BUTTON (Z.B. FÜR "NÄCHSTE SEITE") */
+        /* ACTION BUTTON */
         .action-btn {
             background: transparent;
             border: 1px solid var(--red-alert);
@@ -546,6 +566,11 @@
 </head>
 <body>
 
+    <div id="security-alert">
+        [WARNING: ACCESS DENIED]<br>
+        INTERNAL COPYRIGHT PROTECTED // RECORD LOCKED
+    </div>
+
     <nav class="sidebar">
         <div class="sidebar-header">FIB // TERMINAL_V1.7</div>
         <ul class="sidebar-menu">
@@ -629,8 +654,8 @@
             <div class="document-sheet">
                 <p class="text-paragraph">Mein operatives Profil wurde durch grundverschiedene Behördenstrukturen und Führungsphilosophien geschärft. Während meiner Zeit als <strong>SWAT Leader unter Sophia Hagedorn</strong> lag der Fokus auf der unmittelbaren Stabilisierung einer Spezialeinheit unter massiven internen und externen Belastungsproben. Hier war es essenziell, klare Befehlsketten zu etablieren, Grauzonen zu eliminieren und die operative Schlagkraft der Truppe lückenlos zu gewährleisten.</p>
                 <p class="text-paragraph">Unter der Leitung von <strong>Elli Brandenburger</strong> absolvierte ich eine über sechsmonatige Dienstzeit auf administrativer Ebene (28er) – <strong>absolut frei von Organisations-Verwarnungen</strong>. Solch eine fehlerfreie Konstanz in einer hochfrequentierten Großbehörde resultiert aus bedingungsloser Selbstdisziplin, permanenter Eigenkontrolle und einem fehlerfreien Systemverständnis.</p>
-                <p class="text-paragraph">Unter <strong>Chief of Police Panam Veto</strong> erweiterer ich mein Spektrum als 28er in einem veränderten philosophischen Ansatz. Dies bewies meine Fähigkeit, mich schnell in neue Führungsstrukturen zu integrieren, operative Abläufe pragmatisch zu stützen und trotz struktureller Wechsel die administrative Stabilität zu wahren.</p>
-                <p class="text-paragraph">Zuletzt leitete ich über rund fünf Monate die <strong>CIRG innerhalb des FIB unter Steve Cock</strong>. Meine Kernaufgabe umfasste hier die strategische Koordination komplexer Ermittlungsverfahren, detaillierte Personalbewertung und die Implementierung neuer Qualitätsstandards. Ermittlungsakten wurden unter meiner Aufsicht nicht nur verwaltet, sondern gerichts- und systemfest aufgebaut.</p>
+                <p class="text-paragraph">Unter <strong>Chief of Police Panam Veto</strong> erweiterte ich mein Spektrum als 28er in einem veränderten philosophischen Ansatz. Dies bewies meine Fähigkeit, mich schnell in neue Führungsstrukturen zu integrieren, operative Abläufe pragmatisch zu stützen und trotz struktureller Wechsel die administrative Stabilität zu wahren.</p>
+                <p class="text-paragraph">Zuletzt leitete ich über rund fűnf Monate die <strong>CIRG innerhalb des FIB unter Steve Cock</strong>. Meine Kernaufgabe umfasste hier die strategische Koordination komplexer Ermittlungsverfahren, detaillierte Personalbewertung und die Implementierung neuer Qualitätsstandards. Ermittlungsakten wurden unter meiner Aufsicht nicht nur verwaltet, sondern gerichts- und systemfest aufgebaut.</p>
                 <p class="text-paragraph" style="font-style: italic; color: var(--text-dark);">Führung bedeutet für mich, eine Organisation berechenbar, belastbar und handlungsfähig zu halten, unabhängig von internen oder externen Spannungen. Ich bin ein Mensch, der gerne führt, sich jedoch auch nicht scheut, selbst Anweisungen anzunehmen und umzusetzen.</p>
             </div>
             <button class="action-btn next-page-btn" onclick="goToNextPage()">Nächste Seite: 04 // Dienstakte →</button>
@@ -706,24 +731,41 @@
             
             <div class="document-sheet">
                 <strong style="color:var(--red-alert); display:block; margin-bottom:10px; font-family:var(--font-mono);">1. DEZENTRALISIERUNG / STOPP VON MICROMANAGEMENT</strong>
-                <p class="text-paragraph">Die Direktion zieht sich aus dem operativen Alltagsgeschäft zurück. Verantwortung und Entscheidungskompetenzen werden vollständig an die jeweiligen Abteilungsleitungen übergeben, um Eigeninitiative zu stärken. Das bisher praktizierte Über-Eingreifen von oben demotiviert Führungskräfte und blockiert Prozesse. Unter meiner Führung agieren die Abteilungsleiter eigenverantwortlich innerhalb klar abgesteckter Befugnisse.</p>
+                <p class="text-paragraph">Die Direktion zieht sich aus dem operativen Alltagsgeschäft zurück. Verantwortung und Entscheidungskompetenzen werden vollständig an die jeweiligen Abteilungsleitungen übergeben, um Eigeninitiative zu stärken. Unter meiner Führung agieren die Abteilungsleiter eigenverantwortlich innerhalb klar abgesteckter Befugnisse.</p>
             </div>
 
             <div class="document-sheet">
                 <strong style="color:var(--red-alert); display:block; margin-bottom:10px; font-family:var(--font-mono);">2. FOKUS AUF EXKLUSIVITÄT STATT MASSENABFERTIGUNG</strong>
-                <p class="text-paragraph">Die Aufnahmekriterien werden drastisch verschärft. Das FIB agiert wieder als elitäre Bundesbehörde, in der Qualität und charakterliche Eignung vor reiner Personalstärke stehen. Bloße Online-Präsenz reicht nicht aus; gefordert werden intellektuelle Belastbarkeit, moralische Integrität und messbare Qualität im Ermittlungsdienst. Qualität steht über Quantität.</p>
+                <p class="text-paragraph">Die Aufnahmekriterien werden drastisch verschärft. Das FIB agiert wieder als elitäre Bundesbehörde, in der Qualität und charakterliche Eignung vor reiner Personalstärke stehen. Qualität steht über Quantität.</p>
             </div>
 
             <div class="document-sheet">
                 <strong style="color:var(--red-alert); display:block; margin-bottom:10px; font-family:var(--font-mono);">3. MERITOKRATISCHES SYSTEM (STRIKTE LEISTUNGSBEWERTUNG)</strong>
-                <p class="text-paragraph">Beförderungen und Zuteilungen basieren ausschließlich auf messbaren Resultaten. Persönliche Seilschaften gewähren weder Schutz vor Sanktionen noch unverdiente Aufstiege. Es wird nicht toleriert, dass produktive Mitarbeiter wegen Bagatellen reglementiert werden, während andere durch persönliche Kontakte geschützt bleiben.</p>
+                <p class="text-paragraph">Beförderungen und Zuteilungen basieren ausschließlich auf messbaren Resultaten. Persönliche Seilschaften gewähren weder Schutz vor Sanktionen noch unverdierte Aufstiege.</p>
             </div>
+
+            <div class="document-sheet" style="border-top: 3px solid var(--red-alert);">
+                <strong style="color:#fff; display:block; margin-bottom:15px; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:1px;">[STRATEGIC_TIMELINE // 21-TAGE-DIREKTIONSPLAN]</strong>
+                <p class="text-paragraph" style="font-size:14px; margin-bottom:12px;">
+                    <span style="color:var(--red-alert); font-family:var(--font-mono); font-weight:bold; margin-right:8px;">WOCHE 1: IST-ANALYSE & KOMPETENZÜBERGABE</span><br>
+                    Sichtung aller laufenden Personalakten und Durchführung persönlicher Audits mit den aktuellen Abteilungsleitern. Sofortiger Stopp aller Micromanagement-Prozesse der Direktion, um das Vertrauen und die Eigenverantwortung der Command-Ebene zu reaktivieren.
+                </p>
+                <p class="text-paragraph" style="font-size:14px; margin-bottom:12px;">
+                    <span style="color:var(--red-alert); font-family:var(--font-mono); font-weight:bold; margin-right:8px;">WOCHE 2: SELEKTIONS-REFORM & REKRUTIERUNGS-TESTS</span><br>
+                    Einführung und erster scharfer Testlauf des neuen, analytischen Rekrutierungs-Verfahrens. Bewerber werden simulierten Belastungstests und juristischen Prüfungen unterzogen, um eine sofortige Qualitätssteigerung des neuen Agenten-Kaders zu garantieren.
+                </p>
+                <p class="text-paragraph" style="font-size:14px; margin-bottom:0;">
+                    <span style="color:var(--red-alert); font-family:var(--font-mono); font-weight:bold; margin-right:8px;">WOCHE 3: EFFIZIENZ-EVALUATION & MERITOKRATIE-START</span><br>
+                    Erste Auswertung der autark agierenden Abteilungen. Aktivierung des streng leistungsbasierten Beförderungs- und Sanktionssystems. Wer exzellente Arbeit leistet, steigt auf; persönliche Seilschaften verlieren endgültig ihre Wirkung im Bureau.
+                </p>
+            </div>
+
             <button class="action-btn next-page-btn" onclick="goToNextPage()">Nächste Seite: 07 // Organigramm →</button>
         </section>
 
         <section id="struktur" class="section-block">
             <div class="section-tag">ARCHIV // INDEX_07</div>
-            <h2 class="section-heading">Das neue Abteilungorganigramm</h2>
+            <h2 class="section-heading">Das neue Abteilungsorganigramm</h2>
             
             <div class="struct-grid">
                 <div class="struct-card">
@@ -844,7 +886,10 @@
         </section>
 
         <footer class="closure-box">
-            <div class="system-end-tag">[DOCUMENT SYSTEM V1.7 // TRANSMISSION SECURED]</div>
+            <div class="system-end-tag">
+                [DOCUMENT SYSTEM V1.7 // TRANSMISSION SECURED]<br>
+                <span style="color: rgba(255,255,255,0.15); font-size: 10px; letter-spacing: 0.5px;">&copy; 2026 Eko Plaste #17450. PROPERTY OF FIB INTEL. ALL RIGHTS RESERVED.</span>
+            </div>
             <div class="signature-block">
                 <div class="sig-font">Eko Plaste</div>
                 <div class="system-end-tag">ID: 17450 // Bewerber für die Bundesdirektion</div>
@@ -854,7 +899,6 @@
     </main>
 
     <script>
-        // Array aller Seiten-IDs in der korrekten Reihenfolge
         const pageOrder = [
             'willkommen', 'biometrie', 'motivation', 'profil', 
             'laufbahn', 'kriterien', 'optimierung', 'struktur', 
@@ -862,77 +906,73 @@
         ];
 
         function showPage(pageId, buttonElement) {
-            // 1. Alle Inhalts-Seiten verstecken
             const pages = document.querySelectorAll('.section-block');
             pages.forEach(page => page.classList.remove('active'));
 
-            // 2. Alle Menü-Buttons deaktivieren
             const buttons = document.querySelectorAll('.menu-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
 
-            // 3. Gewählte Seite & Button aktivieren
             document.getElementById(pageId).classList.add('active');
             
-            // Falls der Button direkt übergeben wurde (aus der Sidebar)
             if(buttonElement) {
                 buttonElement.classList.add('active');
             } else {
-                // Falls über den "Nächste Seite"-Button geschaltet wurde, den passenden Sidebar-Button suchen
                 const activeSidebarBtn = document.querySelector(`.menu-btn[data-page="${pageId}"]`);
                 if(activeSidebarBtn) activeSidebarBtn.classList.add('active');
             }
 
-            // 4. Nach dem Seitenwechsel nach ganz oben scrollen
             window.scrollTo(0, 0);
         }
 
         function goToNextPage() {
-            // Findet heraus, welche Seite aktuell offen ist
             const currentActivePage = document.querySelector('.section-block.active');
             if (!currentActivePage) return;
             
             const currentId = currentActivePage.id;
             const currentIndex = pageOrder.indexOf(currentId);
             
-            // Wenn es eine nächste Seite gibt, dorthin umschalten
             if (currentIndex !== -1 && currentIndex < pageOrder.length - 1) {
                 const nextId = pageOrder[currentIndex + 1];
                 showPage(nextId, null);
             }
         }
 
-        // ================= KOPIERSCHUTZ LOGIK =================
+        // ================= ERWEITERTER KOPIERSCHUTZ + SEITE-ALARM =================
         
-        // 1. Rechtsklick komplett sperren
+        function triggerSecurityAlert() {
+            const alertBox = document.getElementById('security-alert');
+            alertBox.classList.add('show');
+            
+            // Versteckt die Warnung nach 2,5 Sekunden automatisch wieder
+            setTimeout(() => {
+                alertBox.classList.remove('show');
+            }, 2500);
+        }
+
+        // 1. Rechtsklick sperren + Alarm anzeigen
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
+            triggerSecurityAlert();
         });
 
-        // 2. Tastatur-Shortcuts abfangen (Strg+C, F12, Strg+U, Strg+Shift+I)
+        // 2. Tastatur-Shortcuts abfangen + Alarm anzeigen
         document.addEventListener('keydown', function(e) {
-            // Blockiert F12
-            if (e.keyCode === 123) {
+            let forbidden = false;
+
+            // F12
+            if (e.keyCode === 123) forbidden = true;
+            // Strg+Shift+I
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 73) forbidden = true;
+            // Strg+U
+            if (e.ctrlKey && e.keyCode === 85) forbidden = true;
+            // Strg+C
+            if (e.ctrlKey && e.keyCode === 67) forbidden = true;
+            // Strg+S
+            if (e.ctrlKey && e.keyCode === 83) forbidden = true;
+
+            if (forbidden) {
                 e.preventDefault();
-                return false;
-            }
-            // Blockiert Strg+Shift+I (Entwicklertools)
-            if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
-                e.preventDefault();
-                return false;
-            }
-            // Blockiert Strg+U (Quellcode anzeigen)
-            if (e.ctrlKey && e.keyCode === 85) {
-                e.preventDefault();
-                return false;
-            }
-            // Blockiert Strg+C (Kopieren)
-            if (e.ctrlKey && e.keyCode === 67) {
-                e.preventDefault();
-                return false;
-            }
-            // Blockiert Strg+S (Speichern)
-            if (e.ctrlKey && e.keyCode === 83) {
-                e.preventDefault();
+                triggerSecurityAlert();
                 return false;
             }
         });
