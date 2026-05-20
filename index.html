@@ -641,6 +641,40 @@
             filter: grayscale(0%) contrast(100%);
         }
 
+        /* NEUE KLASSE FÜR SCHRÄGE BILDER AM RAND */
+        .rotated-side-images {
+            position: absolute;
+            right: -150px; /* Positioniert die Gruppe am rechten Rand */
+            top: 100px;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            gap: 30px; /* Abstand zwischen den Bildern */
+        }
+
+        .rotated-img-container {
+            width: 250px; /* Größe des Quadrats */
+            height: 250px;
+            border: 3px solid #0056b3; /* Dunkelblauer Rahmen */
+            padding: 10px;
+            background: var(--bg-sidebar); /* Dunkler Hintergrund */
+            transform: rotate(-15deg); /* Leichte Schräglage */
+            box-shadow: 0 0 20px rgba(0, 86, 179, 0.3); /* Blauer Glow */
+            transition: all 0.3s ease;
+        }
+        .rotated-img-container:hover {
+            border-color: #00aaff; /* Hellerer Blauton beim Hover */
+            box-shadow: 0 0 30px rgba(0, 170, 255, 0.5);
+            transform: rotate(-15deg) translateY(-10px); /* Leichter Hebeeffekt */
+        }
+
+        .rotated-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Verhindert Verzerrung */
+            filter: grayscale(100%) contrast(115%) brightness(90%); /* Cyber-Stil */
+        }
+
         @keyframes modalFadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -653,13 +687,15 @@
             .id-badge-card, .struct-grid, .matrix-container, .modal-grid { grid-template-columns: 1fr; }
             .struct-card[style] { grid-column: span 1 !important; }
             .struct-desc[style] { grid-template-columns: 1fr !important; }
+            /* Versteckt die schrägen Bilder auf kleinen Bildschirmen */
+            .rotated-side-images { display: none; }
         }
     </style>
 </head>
 <body>
 
     <nav class="sidebar">
-        <div class="sidebar-header">FIB // Director - Bewerbung</div>
+        <div class="sidebar-header">FIB // TERMINAL_V1.7</div>
         <ul class="sidebar-menu">
             <li><button class="menu-btn active" data-page="willkommen" onclick="showPage('willkommen', this)">00 // Einleitung</button></li>
             <li><button class="menu-btn" data-page="biometrie" onclick="showPage('biometrie', this)">01 // Personalien</button></li>
@@ -705,9 +741,18 @@
             <div class="section-tag">ARCHIV // INDEX_01</div>
             <h2 class="section-heading">Bewerber-Identifikation</h2>
             
+            <div class="rotated-side-images">
+                <div class="rotated-img-container">
+                    <img src="LINK_ZUM_BILD_1.png" alt="Einsatzakte Alpha">
+                </div>
+                <div class="rotated-img-container" style="top: 350px;">
+                    <img src="LINK_ZUM_BILD_2.png" alt="Einsatzakte Beta">
+                </div>
+            </div>
+
             <div class="id-badge-card" onclick="openModal()">
                 <div class="badge-photo-box">
-                    <img src="fib.jpg" alt="Federal Crest">
+                    <img src="https://i.imgur.com/PDg8yT2.png" alt="Federal Crest">
                 </div>
                 <div class="badge-grid">
                     <div class="badge-field"><div class="field-label">Ziviler Name (OOC)</div><div class="field-value">Vincent</div></div>
@@ -928,39 +973,39 @@
             <div class="matrix-container">
                 <div class="matrix-box">
                     <h4>Bureau-Direktion</h4>
-                    <div class="matrix-row"><span><span class="matrix-num">30</span>Director of FIB</span><strong>Leader</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">29</span>Deputy Director of FIB</span><strong>Vize Leader</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">28</span>Assistant Director</span><strong>Assistant Leader</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">27</span>Adv. Director for Oversight</span><strong>Curator</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">30</span>Director of FIB</span><strong>Gesamtleitung</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">29</span>Deputy Director of FIB</span><strong>Stellvertretung</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">28</span>Assistant Director</span><strong>Administration</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">27</span>Adv. Director for Oversight</span><strong>Revision / Kuration</strong></div>
                 </div>
                 <div class="matrix-box">
                     <h4>High Command</h4>
-                    <div class="matrix-row"><span><span class="matrix-num">26</span>Inspector</span><strong>HC-Lead</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">25</span>Supervisory Head Agent</span><strong>HC-Manager</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">24</span>Supervisory Special Agent</span><strong>HC-Manager</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">23</span>Special Agent in Charge</span><strong>HC-Traniee</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">26</span>Inspector</span><strong>Aufsicht</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">25</span>Supervisory Head Agent</span><strong>HC-Management</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">24</span>Supervisory Special Agent</span><strong>HC-Management</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">23</span>Special Agent in Charge</span><strong>Einsatzkoordination</strong></div>
                 </div>
                 <div class="matrix-box">
                     <h4>Abteilungsleitung & Command</h4>
                     <div class="matrix-row"><span><span class="matrix-num">22</span>Chief of Department</span><strong>Abteilungsleitung</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">21</span>Dep. Chief of Department</span><strong>Stellv. Abteilungsleitung</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">17</span>Commander</span><strong>Command Lead</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">16</span>Federal Operations Agent</span><strong>Command</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">15</span>Principal Field Agent</span><strong>Command</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">14</span>Executive Agent</span><strong>Command</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">13</span>Enforcement Agent</span><strong>Command</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">12</span>Senior Agent</span><strong>command Traniee</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">21</span>Dep. Chief of Department</span><strong>Stellv. Abt.-Leitung</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">17</span>Commander</span><strong>Einsatzführung</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">16</span>Federal Operations Agent</span><strong>Einsatzführung</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">15</span>Principal Field Agent</span><strong>Führungsunterstützung</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">14</span>Executive Agent</span><strong>Führungsunterstützung</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">13</span>Enforcement Agent</span><strong>Supervision</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">12</span>Senior Agent</span><strong>Supervision</strong></div>
                 </div>
                 <div class="matrix-box">
                     <h4>Agenten- & Spezialränge</h4>
-                    <div class="matrix-row"><span><span class="matrix-num">20</span>Special Agent</span><strong>Media</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">20</span>Special Agent</span><strong>Media / PR</strong></div>
                     <div class="matrix-row"><span><span class="matrix-num">19</span>Tactical Operator</span><strong>CIRG-Einsatzkraft</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">18</span>Department Specialist</span><strong>Abteilungs Manager</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">18</span>Department Specialist</span><strong>Fachexperte</strong></div>
                     <div class="matrix-row"><span><span class="matrix-num">11</span>Junior Special Agent</span><strong>Medienbegleitung</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">10</span>Agent First Class</span><strong>Agent</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">09</span>Field Agent</span><strong>Agent</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">08</span>Agent</span><strong>Agent</strong></div>
-                    <div class="matrix-row"><span><span class="matrix-num">07</span>New Agent Trainee</span><strong>Traniee</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">10</span>Agent First Class</span><strong>Außendienst</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">09</span>Field Agent</span><strong>Außendienst</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">08</span>Agent</span><strong>Außendienst</strong></div>
+                    <div class="matrix-row"><span><span class="matrix-num">07</span>New Agent Trainee</span><strong>Anwärter</strong></div>
                 </div>
             </div>
             <button class="action-btn next-page-btn" onclick="goToNextPage()">Nächste Seite: 09 // Schlusswort →</button>
